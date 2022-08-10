@@ -21,12 +21,14 @@ public class Hooks {
         }
 
         @After
-        public void tearDownTest(Scenario scenario) {
-            if(scenario.isFailed()){
-                byte[] screenshot = DriverConfig.getDriver().getScreenshotAs(OutputType.BYTES);
-                scenario.attach(screenshot, "image/png", scenario.getName());
-            }
+
+        public void endTest(Scenario scenario) {
+
             DriverConfig.getDriver().quit();
+//            ServerConfig serverManager = new ServerConfig();
+//            if(serverManager.getServer() != null){
+//                serverManager.getServer().stop();
+            }
         }
     }
 
