@@ -8,6 +8,7 @@ import io.cucumber.java.Scenario;
 import org.openqa.selenium.OutputType;
 import util.Installation;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 
 public class Hooks {
@@ -21,11 +22,7 @@ public class Hooks {
 
         @After
         public void endTest(Scenario scenario) {
-
-            if(scenario.isFailed() || DriverConfig.getDriver()!= null){
-                byte[] screenshot = DriverConfig.getDriver().getScreenshotAs(OutputType.BYTES);
-                scenario.attach(screenshot, "image/png", scenario.getName());
-            }
+            
             ServerConfig serverManager = new ServerConfig();
             if(serverManager.getServer() != null){
                 serverManager.getServer().stop();
