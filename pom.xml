@@ -38,12 +38,17 @@
         </dependency>
 
 
-
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.24</version>
             <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>7.0.0</version>
         </dependency>
 
     </dependencies>
@@ -52,5 +57,47 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+
+    <profiles>
+        <profile>
+            <id>android</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <build.profile.id>android</build.profile.id>
+            </properties>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources/profile/android</directory>
+                    </resource>
+                    <resource>
+                        <directory>src/main/resources/appium</directory>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+
+        <profile>
+            <id>ios</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <build.profile.id>ios</build.profile.id>
+            </properties>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources/profile/ios</directory>
+                    </resource>
+                    <resource>
+                        <directory>src/main/resources/appium</directory>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+    </profiles>
 
 </project>
