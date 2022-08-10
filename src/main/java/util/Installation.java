@@ -40,7 +40,7 @@ public class Installation {
         DesiredCapabilities desiredCapabilities = setCapability();
         if (capabilityMap.get("PLATFORM_NAME").equals("Android"))
         try {
-            return new  AndroidDriver<MobileElement>(new URL(new AppiumConfig().readProperties().get("url").toString()), desiredCapabilities);
+            return new AndroidDriver<MobileElement>(new URL(new AppiumConfig().readProperties().get("url").toString()), desiredCapabilities);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
