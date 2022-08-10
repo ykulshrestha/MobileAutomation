@@ -22,12 +22,12 @@ public class Hooks {
 
         @After
         public void endTest(Scenario scenario) {
-            
+
+            DriverConfig.getDriver().quit();
             ServerConfig serverManager = new ServerConfig();
             if(serverManager.getServer() != null){
                 serverManager.getServer().stop();
             }
-            DriverConfig.getDriver().quit();
         }
     }
 
