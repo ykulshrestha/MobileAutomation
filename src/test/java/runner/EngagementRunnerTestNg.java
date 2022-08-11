@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
         ,glue = {"base", "stepdefinition"}
         ,tags= "@Test1"
         ,publish = true
+        ,plugin = {"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"}
 )
 
 public class EngagementRunnerTestNg extends AbstractTestNGCucumberTests {
