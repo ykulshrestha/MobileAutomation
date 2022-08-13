@@ -1,13 +1,14 @@
 package util;
 
 import configs.DriverConfig;
+import io.appium.java_client.FindsByAndroidUIAutomator;
+import io.appium.java_client.android.AndroidDriver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.HashMap;
 
 // This is general actions util class in which actions that can be performed on a element can be added and used throughout across the project
 public class ActionUtils {
@@ -29,7 +30,7 @@ public class ActionUtils {
 
 
         //This function is used for checking the existence of any element
-        public static boolean isElementPresent(MobileElement element, int timeout){
+    public static boolean isElementPresent(MobileElement element, int timeout){
         WebDriverWait webDriverWait = new WebDriverWait(DriverConfig.getDriver(), timeout);
         try{
             logger.info("Waiting for visibility of "+ element.getText());
@@ -46,17 +47,33 @@ public class ActionUtils {
     //TODO: Ask to add text on button elements
     //TODO: Correct logger
         //This function performs click operation on a mobile element once it is visible
-        public static void clickButton(MobileElement element){
+    public static void clickButton(MobileElement element){
         waitForVisibilityOf(element);
         logger.info("Performing click operation on {}", element.getId());
         element.click();
     }
 
         //This function sends a text to a mobile element once it is visible
-        public static void sendText(MobileElement element, String text){
+    public static void sendText(MobileElement element, String text){
         waitForVisibilityOf(element);
         logger.info("Entering {} in \'{}\' textbox",text, element.getText());
         element.sendKeys(text);
     }
+
+    public static MobileElement androidScroll(String attribute, String value){
+         return (MobileElement) ((FindsByAndroidUIAutomator) DriverConfig.getDriver()).findElementByAndroidUIAutomator(
+                    "new UiScrollable(new UiSelector()" + ".scrollable(true)).scrollIntoView("
+                            + "new UiSelector()."+ attribute +"(\"" + value + "\"));");
+    }
+
+    //TODO: Add scroll method for ios
+    public static MobileElement scroll(String attribute, String value){
+        if (DriverConfig.getDriver() instanceof AndroidDriver)
+           return androidScroll(attribute , value);
+        return null;
+    }
+
+
+
 
     }
