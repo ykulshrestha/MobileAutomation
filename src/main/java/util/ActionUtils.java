@@ -73,6 +73,10 @@ public class ActionUtils {
         return null;
     }
 
+    public static void gestureBack(){
+        DriverConfig.getDriver().navigate().back();
+    }
+
 
 
 
