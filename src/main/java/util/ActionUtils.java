@@ -7,6 +7,8 @@ import io.appium.java_client.MobileElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.HashMap;
+
 // This is general actions util class in which actions that can be performed on a element can be added and used throughout across the project
 public class ActionUtils {
 
