@@ -14,6 +14,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
+import java.util.Objects;
 
 public class Installation {
 
@@ -28,17 +29,17 @@ public class Installation {
         desiredCapabilities = new DesiredCapabilities();
         logger.info("Setting capabilities for appium driver: ");
         desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, capabilityMap.get("AUTOMATION_NAME"));
-        logger.info(MobileCapabilityType.AUTOMATION_NAME + "=" + capabilityMap.get("AUTOMATION_NAME"));
+        logger.info("{} = {}", MobileCapabilityType.AUTOMATION_NAME, capabilityMap.get("AUTOMATION_NAME"));
         desiredCapabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, capabilityMap.get("PLATFORM_VERSION"));
-        logger.info(MobileCapabilityType.PLATFORM_VERSION + "=" + capabilityMap.get("PLATFORM_VERSION"));
+        logger.info("{} = {}",MobileCapabilityType.PLATFORM_VERSION, capabilityMap.get("PLATFORM_VERSION"));
         desiredCapabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, capabilityMap.get("PLATFORM_NAME"));
-        logger.info(MobileCapabilityType.PLATFORM_NAME + "=" + capabilityMap.get("PLATFORM_NAME"));
+        logger.info("{} = {}",MobileCapabilityType.PLATFORM_NAME, capabilityMap.get("PLATFORM_NAME"));
         desiredCapabilities.setCapability(MobileCapabilityType.DEVICE_NAME, capabilityMap.get("DEVICE_NAME"));
-        logger.info(MobileCapabilityType.DEVICE_NAME + "=" + capabilityMap.get("DEVICE_NAME"));
+        logger.info("{} = {}",MobileCapabilityType.DEVICE_NAME, capabilityMap.get("DEVICE_NAME"));
         desiredCapabilities.setCapability(MobileCapabilityType.APP, System.getProperty("user.dir")+ capabilityMap.get("APP"));
-        logger.info(MobileCapabilityType.APP + "=" + System.getProperty("user.dir")+ capabilityMap.get("APP"));
+        logger.info("{} = {}",MobileCapabilityType.APP, System.getProperty("user.dir")+ capabilityMap.get("APP"));
         desiredCapabilities.setCapability("avd", capabilityMap.get("AVD"));
-        logger.info("avd" + "=" + capabilityMap.get("AVD"));
+        logger.info("{} = {}","avd", capabilityMap.get("AVD"));
 
         return desiredCapabilities;
     }
@@ -46,25 +47,27 @@ public class Installation {
     // This functions returns a driver based on the platform type i.e. android driver or ios driver
     public AppiumDriver getDriver()
     {
+        AppiumDriver appiumDriver = null;
         DesiredCapabilities desiredCapabilities = setCapability();
         logger.info("Platform type is "+ capabilityMap.get("PLATFORM_NAME") + ", creating "+ capabilityMap.get("PLATFORM_NAME") + "driver");
         if (capabilityMap.get("PLATFORM_NAME").equals("Android"))
         try {
-            return new AndroidDriver<MobileElement>(new URL(new PropertyConfig().readProperties(Constant.APPIUM_PROPERTIES).get("url").toString()), desiredCapabilities);
-        } catch (MalformedURLException e) {
-            logger.error("Error occured while creating Android driver");
+            appiumDriver = new AndroidDriver<MobileElement>(new URL(new PropertyConfig().readProperties(Constant.APPIUM_PROPERTIES).get("url").toString()), desiredCapabilities);
+        } catch (Exception e) {
+            logger.error("Error occurred while creating Android driver {} ", e.getMessage());
             e.printStackTrace();
         }
         if (capabilityMap.get("PLATFORM_NAME").equals("ios"))
             try {
-                return new IOSDriver<MobileElement>(new URL(new PropertyConfig().readProperties(Constant.APPIUM_PROPERTIES).get("url").toString()), setCapability());
+                appiumDriver = new IOSDriver<MobileElement>(new URL(new PropertyConfig().readProperties(Constant.APPIUM_PROPERTIES).get("url").toString()), setCapability());
 
             } catch (MalformedURLException e) {
-                logger.error("Error occured while creating Ios driver");
+                logger.error("Error occurred while creating ios driver {} ", e.getMessage());
                 e.printStackTrace();
             }
-        logger.info( capabilityMap.get("PLATFORM_NAME") + " driver created successfully");
-        return null;
+        if (Objects.nonNull(appiumDriver))
+            logger.info( capabilityMap.get("PLATFORM_NAME") + " driver created successfully");
+        return appiumDriver;
     }
 
 

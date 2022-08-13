@@ -19,7 +19,7 @@ public class ActionUtils {
         try {
             wait.until(ExpectedConditions.visibilityOf(element));
         } catch (Exception e) {
-            logger.error((element.getText() + " element is not present: "));
+            logger.error("{} element is not present ", element.getText());
             e.printStackTrace();
         }
     }
@@ -33,23 +33,24 @@ public class ActionUtils {
             webDriverWait.until(ExpectedConditions.visibilityOf(element));
             return true;
         }catch(Exception e){
-            logger.error(element.getText() + " element is not present: ");
+            logger.error( "{} element is not present: ", element.getText() );
             e.printStackTrace();
             return false;
         }
     }
 
+    //TODO: Ask to add text on button elements
         //This function performs click operation on a mobile element once it is visible
         public static void clickButton(MobileElement element){
         waitForVisibilityOf(element);
-        logger.info("Performing click operation on "+ element.getText());
+        logger.info("Performing click operation on {}", element.getId());
         element.click();
     }
 
         //This function sends a text to a mobile element once it is visible
         public static void sendText(MobileElement element, String text){
         waitForVisibilityOf(element);
-        logger.info("Entering " + text + "in " + element.getText() + "textbox");
+        logger.info("Entering {} in \'{}\' textbox",text, element.getText());
         element.sendKeys(text);
     }
 
