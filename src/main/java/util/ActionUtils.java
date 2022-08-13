@@ -20,6 +20,7 @@ public class ActionUtils {
             wait.until(ExpectedConditions.visibilityOf(element));
         } catch (Exception e) {
             logger.error("{} element is not present ", element.getText());
+            logger.error(e.getStackTrace());
             e.printStackTrace();
         }
     }
@@ -34,12 +35,14 @@ public class ActionUtils {
             return true;
         }catch(Exception e){
             logger.error( "{} element is not present: ", element.getText() );
+            logger.error(e.getStackTrace());
             e.printStackTrace();
             return false;
         }
     }
 
     //TODO: Ask to add text on button elements
+    //TODO: Correct logger
         //This function performs click operation on a mobile element once it is visible
         public static void clickButton(MobileElement element){
         waitForVisibilityOf(element);
