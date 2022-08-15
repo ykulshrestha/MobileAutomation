@@ -16,7 +16,8 @@ public class AppUtil {
         ActionUtils.clickButton(welcomePage.getHomeSearch());
         ActionUtils.clickButton(categoryPage.getBuy());
         ActionUtils.sendText(citySelectPage.getCityTextBox(), "Delhi");
-        ActionUtils.clickButton(citySelectPage.getCityNameSelect());
+        ActionUtils.clickButton(ActionUtils.elementWithMatchingText(citySelectPage.getElements(),"Delhi"));
+//        ActionUtils.clickButton(citySelectPage.getElements().get(0));
         ActionUtils.clickButton(localitySelectPage.getSkip());
     }
 }
