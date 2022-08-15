@@ -7,6 +7,8 @@ import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import lombok.Getter;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
+
 @Getter
 public class SearchLocalityPage {
 
@@ -16,9 +18,8 @@ public class SearchLocalityPage {
     @AndroidFindBy(id = "SearchButton")
     private MobileElement SearchButton;
 
-    //TODO: Check handling of list elements in page factory
-    @AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc=\"filter_localitySelect_0\"]/android.view.ViewGroup")
-    private MobileElement searchedProject;
+    @AndroidFindBy(xpath = "//android.view.ViewGroup[contains(@content-desc,'filter_localitySelect')]/android.view.ViewGroup/android.widget.TextView[1]")
+    private List<MobileElement> searchedProjectList;
 
 
     public SearchLocalityPage() {

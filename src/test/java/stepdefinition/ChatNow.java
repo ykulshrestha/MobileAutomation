@@ -16,7 +16,7 @@ public class ChatNow {
         appUtil.onboarding();
         ActionUtils.clickButton(homePage.getBuy());
         ActionUtils.sendText(searchLocalityPage.getSearchTextBox(), "Godrej south estate");
-        ActionUtils.clickButton(searchLocalityPage.getSearchedProject());
+        ActionUtils.clickButton(ActionUtils.elementWithMatchingText(searchLocalityPage.getSearchedProjectList(), 0));
 //        ActionUtils.clickButton(searchLocalityPage.getSearchButton());
     }
 
@@ -57,4 +57,6 @@ public class ChatNow {
     @And("user click on contact")
     public void userClickOnContact() {
     }
+
+
 }
