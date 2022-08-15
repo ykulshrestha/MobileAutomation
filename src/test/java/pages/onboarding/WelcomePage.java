@@ -1,6 +1,7 @@
 package pages.onboarding;
 
 import configs.DriverConfig;
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
@@ -12,16 +13,16 @@ import org.openqa.selenium.support.PageFactory;
 public class WelcomePage {
 
     @AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup")
-    private AndroidElement HomeSearch;
+    private MobileElement HomeSearch;
 
     @AndroidFindBy(id = "PayOnCredit")
-    private AndroidElement PayOnCredit;
+    private MobileElement PayOnCredit;
 
     @AndroidFindBy(id = "PostYourProperty")
-    private AndroidElement PostYourProperty;
+    private MobileElement PostYourProperty;
 
     @AndroidFindBy(id = "HomeRelatedServices")
-    private AndroidElement HomeRelatedServices;
+    private MobileElement HomeRelatedServices;
 
 
     public WelcomePage() {
