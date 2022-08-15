@@ -16,7 +16,7 @@ public class DetailsPage {
     @AndroidFindBy(id = "Chat_for_Details")
     private MobileElement chatForDetails;
 
-    public DetailsPage() throws InterruptedException {
+    public DetailsPage() {
          PageFactory.initElements(new AppiumFieldDecorator(DriverConfig.getDriver()), this);
     }
 

@@ -9,7 +9,7 @@ import util.ActionUtils;
 
 public class ChatNow {
     @Given("User is on Detail Page")
-    public void userIsOnDetailPage() throws InterruptedException {
+    public void userIsOnDetailPage() {
         AppUtil appUtil = new AppUtil();
         HomePage homePage = new HomePage();
         SearchLocalityPage searchLocalityPage = new SearchLocalityPage();
@@ -39,20 +39,20 @@ public class ChatNow {
 
 
     @When("User click on Chat Now")
-    public void userClickOnChatNow() throws InterruptedException {
+    public void userClickOnChatNow()  {
         DetailsPage detailsPage = new DetailsPage();
         ActionUtils.clickButton(detailsPage.getChatNow());
     }
 
     @Then("Chat screen is visible to user")
-    public void chatScreenIsVisibleToUser() throws InterruptedException {
+    public void chatScreenIsVisibleToUser()  {
         ChatThreadPage chatThreadPage = new ChatThreadPage();
-        Assert.assertTrue(ActionUtils.isElementPresent(chatThreadPage.getSellerName(), 90));
+        Assert.assertTrue(ActionUtils.isElementPresent(chatThreadPage.getSellerName(), 120));
         Assert.assertTrue(ActionUtils.isElementPresent(chatThreadPage.getPropertyDetails(), 40));
         Assert.assertTrue(ActionUtils.isElementPresent(chatThreadPage.getMessageTextBox(), 40));
         ActionUtils.clickButton(chatThreadPage.getHelloPill());
         ActionUtils.clickButton(chatThreadPage.getSendButton());
-        Thread.sleep(10000);
+//        Thread.sleep(10000);
     }
 
 

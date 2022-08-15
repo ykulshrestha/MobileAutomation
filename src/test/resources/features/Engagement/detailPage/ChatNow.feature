@@ -1,6 +1,6 @@
 Feature: Verify Chat Now
 
-  @Test2
+  @Test1
   Scenario: Logged in user successfully intiated chat
     Given Logged in User is on Detail Page
     When User click on Chat Now
