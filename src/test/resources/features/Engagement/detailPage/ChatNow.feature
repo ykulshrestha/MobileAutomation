@@ -6,7 +6,7 @@ Feature: Verify Chat Now
     When User click on Chat Now
     Then Chat screen is visible to user
 
-  @Test1
+  @Test2
   Scenario: Logged out user successfully intiated chat through login modal
     Given User is on Detail Page
     When User click on Chat Now
