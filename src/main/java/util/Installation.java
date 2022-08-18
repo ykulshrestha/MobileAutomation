@@ -45,10 +45,10 @@ public class Installation {
     }
 
     // This functions returns a driver based on the platform type i.e. android driver or ios driver
-    public AppiumDriver getDriver()
+    public AppiumDriver getDriver(DesiredCapabilities capabilities)
     {
         AppiumDriver appiumDriver = null;
-        DesiredCapabilities desiredCapabilities = setCapability();
+//        DesiredCapabilities desiredCapabilities = setCapability();
         logger.info("Platform type is "+ capabilityMap.get("PLATFORM_NAME") + ", creating "+ capabilityMap.get("PLATFORM_NAME") + "driver");
         if (capabilityMap.get("PLATFORM_NAME").equals("Android"))
         try {
@@ -59,7 +59,7 @@ public class Installation {
         }
         if (capabilityMap.get("PLATFORM_NAME").equals("ios"))
             try {
-                appiumDriver = new IOSDriver<MobileElement>(new URL(new PropertyConfig().readProperties(Constant.APPIUM_PROPERTIES).get("url").toString()), setCapability());
+                appiumDriver = new IOSDriver<MobileElement>(new URL(new PropertyConfig().readProperties(Constant.APPIUM_PROPERTIES).get("url").toString()), desiredCapabilities);
 
             } catch (MalformedURLException e) {
                 logger.error("Error occurred while creating ios driver {} ", e.getMessage());

@@ -1,5 +1,6 @@
 package stepdefinition;
 
+import org.testng.Assert;
 import utils.AppUtil;
 import io.cucumber.java.en.*;
 import pages.DetailsPage;
@@ -28,6 +29,7 @@ public class ChatNow {
 
     @Then("Chat screen is visible to user")
     public void chatScreenIsVisibleToUser() {
+
     }
 
     @And("User enter username on login modal")
@@ -59,4 +61,24 @@ public class ChatNow {
     }
 
 
+    @Given("User is on Detail Page aa")
+    public void userIsOnDetailPageAa() {
+        AppUtil appUtil = new AppUtil();
+        HomePage homePage = new HomePage();
+        SearchLocalityPage searchLocalityPage = new SearchLocalityPage();
+        appUtil.onboarding();
+        ActionUtils.clickButton(homePage.getBuy());
+        ActionUtils.sendText(searchLocalityPage.getSearchTextBox(), "Godrej south estate");
+        ActionUtils.clickButton(ActionUtils.elementWithMatchingText(searchLocalityPage.getSearchedProjectList(), 0));
+    }
+
+    @When("User click on Chat Now aa")
+    public void userClickOnChatNowAa() throws InterruptedException {
+        DetailsPage detailsPage = new DetailsPage();
+        ActionUtils.clickButton(detailsPage.getChatNow());
+    }
+
+    @Then("Chat screen is visible to user aa")
+    public void chatScreenIsVisibleToUserAa() {
+    }
 }

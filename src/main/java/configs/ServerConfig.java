@@ -15,22 +15,21 @@ public class ServerConfig {
 
     private static final Logger logger = LogManager.getLogger(ServerConfig.class);
 
-    private static ThreadLocal<AppiumDriverLocalService> server = new ThreadLocal<>();
+    private static AppiumDriverLocalService server;
 
-    public AppiumDriverLocalService getServer(){
-        return server.get();
+    public static AppiumDriverLocalService getServer(){
+        return server;
     }
 
     public void startServer(){
-        AppiumDriverLocalService server = getAppiumService();
+        server = getAppiumService();
         logger.info("Starting appium server on "+ server.getUrl());
-        server.start();
+            server.start();
         if(server == null || !server.isRunning()){
             logger.error("Error occured while starting appium server"+ server.getUrl());
             throw new AppiumServerHasNotBeenStartedLocallyException("Appium server not started. ABORT!!!");
         }
         logger.info("Appium server started successfully on "+ server.getUrl());
-        this.server.set(server);
     }
 
     public AppiumDriverLocalService getAppiumService() {
@@ -42,7 +41,7 @@ public class ServerConfig {
         logger.info("Setting ANDROID_HOME for appium server "+ System.getenv("ANDROID_HOME"));
         logger.info("Setting Node js path for appium server "+ System.getenv("NODE_PATH"));
         logger.info("Setting Appium js path for appium server "+ System.getenv("APPIUMJS_PATH"));
-        logger.info("Setting PORT for appium server "+ System.getenv("PORT"));
+        logger.info("Setting PORT for appium server ");
 
         return AppiumDriverLocalService.buildService(new AppiumServiceBuilder()
                 .usingDriverExecutable(new File(System.getenv("NODE_PATH")))

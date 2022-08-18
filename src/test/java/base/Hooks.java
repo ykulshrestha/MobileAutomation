@@ -9,6 +9,7 @@ import io.cucumber.java.Scenario;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.testng.annotations.Parameters;
 import util.Installation;
 
 import java.io.File;
@@ -19,8 +20,9 @@ public class Hooks {
 
     @Before
     public void initializeTest() throws MalformedURLException {
-        new ServerConfig().startServer();
-        DriverConfig.setDriver(new Installation().getDriver());
+//        new ServerConfig().startServer();
+//        DriverConfig.setDriver(new Installation().getDriver());
+        DriverConfig.getDriver().resetApp();
         }
 
 
@@ -36,11 +38,11 @@ public class Hooks {
 
     @After (order = 0)
     public void endTest(Scenario scenario) {
-        DriverConfig.getDriver().quit();
-            ServerConfig serverManager = new ServerConfig();
-            if(serverManager.getServer() != null){
-                serverManager.getServer().stop();
-            }
+//        DriverConfig.getDriver().quit();
+//            ServerConfig serverManager = new ServerConfig();
+//            if(serverManager.getServer() != null){
+//                serverManager.getServer().stop();
+//            }
     }
 }
 
