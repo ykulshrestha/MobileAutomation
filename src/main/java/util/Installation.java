@@ -40,6 +40,10 @@ public class Installation {
         logger.info("{} = {}",MobileCapabilityType.APP, System.getProperty("user.dir")+ capabilityMap.get("APP"));
         desiredCapabilities.setCapability("avd", capabilityMap.get("AVD"));
         logger.info("{} = {}","avd", capabilityMap.get("AVD"));
+        desiredCapabilities.setCapability("noReset", "false");
+        desiredCapabilities.setCapability("autoGrantPermissions", "true");
+        desiredCapabilities.setCapability("fullReset", "true");
+
 
         return desiredCapabilities;
     }
