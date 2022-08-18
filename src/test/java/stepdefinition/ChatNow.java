@@ -13,7 +13,7 @@ public class ChatNow {
         AppUtil appUtil = new AppUtil();
         HomePage homePage = new HomePage();
         SearchLocalityPage searchLocalityPage = new SearchLocalityPage();
-        appUtil.onboarding();
+        appUtil.buyerOnboarding();
         ActionUtils.clickButton(homePage.getBuy());
         ActionUtils.sendText(searchLocalityPage.getSearchTextBox(), "Godrej south estate");
         ActionUtils.clickButton(ActionUtils.elementWithMatchingText(searchLocalityPage.getSearchedProjectList(), 0));
@@ -27,7 +27,7 @@ public class ChatNow {
         SearchLocalityPage searchLocalityPage = new SearchLocalityPage();
         ProfilePage profilePage = new ProfilePage();
         LoginModal loginModal = new LoginModal();
-        appUtil.onboarding();
+        appUtil.buyerOnboarding();
         ActionUtils.clickButton(homePage.getProfileTab());
         ActionUtils.clickButton(profilePage.getLoginButton());
         loginModal.loginWithPassword("7317141110", "12345");
