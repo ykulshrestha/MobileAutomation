@@ -8,7 +8,7 @@ import util.ActionUtils;
 
 public class AppUtil {
 
-    public void onboarding()  {
+    public void buyerOnboarding()  {
         WelcomePage welcomePage = new WelcomePage();
         CategoryPage categoryPage = new CategoryPage();
         CitySelectPage citySelectPage = new CitySelectPage();
