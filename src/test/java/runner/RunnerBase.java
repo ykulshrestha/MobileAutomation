@@ -25,14 +25,13 @@ public class RunnerBase extends AbstractTestNGCucumberTests {
             "DEVICE_NAME",
             "PLATFORM_VERSION",
             "APP",
-            "AVD",
-    "PORT"})
+            "AVD"})
     public void beforeTest(String AUTOMATION_NAME, String
             PLATFORM_NAME, String
                     DEVICE_NAME, String
                     PLATFORM_VERSION,String
                     APP, String
-                    AVD, String PORT){
+                    AVD){
         System.out.println("executing before test==========================");
         new ServerConfig().startServer();
         DesiredCapabilities desiredCapabilities;

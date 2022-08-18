@@ -1,4 +1,4 @@
-package pages;
+package pages.buyerAppPages;
 
 import configs.DriverConfig;
 import io.appium.java_client.MobileElement;

@@ -1,9 +1,10 @@
 package stepdefinition;
 
-import org.testng.Assert;
 import modals.LoginModal;
-import org.testng.Assert;
-import pages.*;
+import pages.buyerAppPages.DetailsPage;
+import pages.buyerAppPages.HomePage;
+import pages.buyerAppPages.ProfilePage;
+import pages.buyerAppPages.SearchLocalityPage;
 import utils.AppUtil;
 import io.cucumber.java.en.*;
 import util.ActionUtils;
@@ -45,16 +46,16 @@ public class ChatNow {
         ActionUtils.clickButton(detailsPage.getChatNow());
     }
 
-    @Then("Chat screen is visible to user")
-    public void chatScreenIsVisibleToUser()  {
-        ChatThreadPage chatThreadPage = new ChatThreadPage();
-        Assert.assertTrue(ActionUtils.isElementPresent(chatThreadPage.getSellerName(), 120));
-        Assert.assertTrue(ActionUtils.isElementPresent(chatThreadPage.getPropertyDetails(), 40));
-        Assert.assertTrue(ActionUtils.isElementPresent(chatThreadPage.getMessageTextBox(), 40));
-        ActionUtils.clickButton(chatThreadPage.getHelloPill());
-        ActionUtils.clickButton(chatThreadPage.getSendButton());
-//        Thread.sleep(10000);
-    }
+//    @Then("Chat screen is visible to user")
+//    public void chatScreenIsVisibleToUser()  {
+//        ChatThreadPage chatThreadPage = new ChatThreadPage();
+//        Assert.assertTrue(ActionUtils.isElementPresent(chatThreadPage.getSellerName(), 120));
+//        Assert.assertTrue(ActionUtils.isElementPresent(chatThreadPage.getPropertyDetails(), 40));
+//        Assert.assertTrue(ActionUtils.isElementPresent(chatThreadPage.getMessageTextBox(), 40));
+//        ActionUtils.clickButton(chatThreadPage.getHelloPill());
+//        ActionUtils.clickButton(chatThreadPage.getSendButton());
+////        Thread.sleep(10000);
+//    }
 
 
     @And("User drop off login through login modal")
