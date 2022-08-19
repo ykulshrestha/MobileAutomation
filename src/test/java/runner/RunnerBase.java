@@ -2,7 +2,6 @@ package runner;
 
 //import io.cucumber.junit.CucumberOptions;
 import configs.DriverConfig;
-import configs.PropertyConfig;
 import configs.ServerConfig;
 import constants.Constant;
 import io.appium.java_client.MobileElement;
@@ -12,6 +11,7 @@ import io.appium.java_client.remote.MobileCapabilityType;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.*;
+import util.ConfigUtil;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -48,13 +48,13 @@ public class RunnerBase extends AbstractTestNGCucumberTests {
 
         if (PLATFORM_NAME.equals("Android"))
             try {
-                DriverConfig.setDriver(new AndroidDriver<MobileElement>(new URL(new PropertyConfig().readProperties(Constant.APPIUM_PROPERTIES).get("url").toString()), desiredCapabilities));
+                DriverConfig.setDriver(new AndroidDriver<MobileElement>(new URL(new ConfigUtil().readProperties(Constant.APPIUM_PROPERTIES).get("url").toString()), desiredCapabilities));
             } catch (Exception e) {
                 e.printStackTrace();
             }
         if (PLATFORM_NAME.equals("ios"))
             try {
-                DriverConfig.setDriver(new IOSDriver<MobileElement>(new URL(new PropertyConfig().readProperties(Constant.APPIUM_PROPERTIES).get("url").toString()), desiredCapabilities));
+                DriverConfig.setDriver(new IOSDriver<MobileElement>(new URL(new ConfigUtil().readProperties(Constant.APPIUM_PROPERTIES).get("url").toString()), desiredCapabilities));
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }

@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 @Test
 @CucumberOptions(
-        features = {"src/test/resources/features/Engagement/detailPage/ChatNow2.feature"}
+        features = {"src/test/resources/features/Engagement/detailPage/ChatNow.feature"}
         ,glue = {"base", "stepdefinition"}
         ,tags= "@Test1"
         ,publish = true

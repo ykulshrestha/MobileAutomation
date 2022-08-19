@@ -1,11 +1,11 @@
 package util;
 
-import configs.PropertyConfig;
 import constants.Constant;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import io.appium.java_client.remote.MobileCapabilityType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,7 +25,7 @@ public class Installation {
 
   //This functions is setting the capabilities for a device
     DesiredCapabilities  setCapability(){
-        capabilityMap = new PropertyConfig().readProperties(Constant.CAPABILITIES);
+        capabilityMap = new ConfigUtil().readProperties(Constant.CAPABILITIES);
         desiredCapabilities = new DesiredCapabilities();
         logger.info("Setting capabilities for appium driver: ");
         desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, capabilityMap.get("AUTOMATION_NAME"));
@@ -40,10 +40,13 @@ public class Installation {
         logger.info("{} = {}",MobileCapabilityType.APP, System.getProperty("user.dir")+ capabilityMap.get("APP"));
         desiredCapabilities.setCapability("avd", capabilityMap.get("AVD"));
         logger.info("{} = {}","avd", capabilityMap.get("AVD"));
-        desiredCapabilities.setCapability("noReset", "false");
-        desiredCapabilities.setCapability("autoGrantPermissions", "true");
-        desiredCapabilities.setCapability("fullReset", "true");
-
+        desiredCapabilities.setCapability(MobileCapabilityType.NO_RESET, capabilityMap.get("NO_RESET"));
+        logger.info("{} = {}",MobileCapabilityType.NO_RESET, capabilityMap.get("NO_RESET"));
+        if (capabilityMap.get("PLATFORM_NAME").equals("Android"))
+        desiredCapabilities.setCapability(AndroidMobileCapabilityType.AUTO_GRANT_PERMISSIONS, capabilityMap.get("AUTO_GRANT_PERMISSIONS"));
+        //TODO: Add handling for IOS
+        desiredCapabilities.setCapability(MobileCapabilityType.FULL_RESET, capabilityMap.get("FULL_RESET"));
+        logger.info("{} = {}",MobileCapabilityType.FULL_RESET, capabilityMap.get("FULL_RESET"));
 
         return desiredCapabilities;
     }
@@ -56,14 +59,14 @@ public class Installation {
         logger.info("Platform type is "+ capabilityMap.get("PLATFORM_NAME") + ", creating "+ capabilityMap.get("PLATFORM_NAME") + "driver");
         if (capabilityMap.get("PLATFORM_NAME").equals("Android"))
         try {
-            appiumDriver = new AndroidDriver<MobileElement>(new URL(new PropertyConfig().readProperties(Constant.APPIUM_PROPERTIES).get("url").toString()), desiredCapabilities);
+            appiumDriver = new AndroidDriver<MobileElement>(new URL(new ConfigUtil().readProperties(Constant.APPIUM_PROPERTIES).get("url").toString()), desiredCapabilities);
         } catch (Exception e) {
             logger.error("Error occurred while creating Android driver {} ", e.getMessage());
             e.printStackTrace();
         }
         if (capabilityMap.get("PLATFORM_NAME").equals("ios"))
             try {
-                appiumDriver = new IOSDriver<MobileElement>(new URL(new PropertyConfig().readProperties(Constant.APPIUM_PROPERTIES).get("url").toString()), desiredCapabilities);
+                appiumDriver = new IOSDriver<MobileElement>(new URL(new ConfigUtil().readProperties(Constant.APPIUM_PROPERTIES).get("url").toString()), desiredCapabilities);
 
             } catch (MalformedURLException e) {
                 logger.error("Error occurred while creating ios driver {} ", e.getMessage());

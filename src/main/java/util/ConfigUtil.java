@@ -1,6 +1,4 @@
-package configs;
-
-import constants.Constant;
+package util;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-public class PropertyConfig {
+public class ConfigUtil {
 
     // This functions reads file and put each key and value in a map object and returns the same
     public  Map readProperties(String fileName){

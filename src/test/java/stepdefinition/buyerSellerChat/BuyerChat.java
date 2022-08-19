@@ -17,10 +17,10 @@ public class BuyerChat {
 
     }
 
-    @And("Chat screen is visible to user")
-    public void chatScreenIsVisibleToUser()  {
-
-    }
+//    @And("Chat screen is visible to user")
+//    public void chatScreenIsVisibleToUser()  {
+//
+//    }
 
     @Then("Buyer sends message to seller")
     public void buyerSendsMessageToSeller() {

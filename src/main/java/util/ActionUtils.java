@@ -2,6 +2,7 @@ package util;
 
 import configs.DriverConfig;
 import io.appium.java_client.FindsByAndroidUIAutomator;
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,6 +11,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
+
+import static io.appium.java_client.touch.offset.PointOption.point;
 
 
 // This is general actions util class in which actions that can be performed on a element can be added and used throughout across the project
@@ -89,6 +92,19 @@ public class ActionUtils {
 
     public static MobileElement elementWithMatchingText(List<MobileElement> elementsList, int index) {
         return elementsList.get(index);
+    }
+
+    //TODO: Function not working as expected
+    public static void dragOperation(MobileElement startElement, MobileElement endElement) {
+        int startX = startElement.getLocation().getX() + (startElement.getSize().getWidth() / 2);
+        int startY = startElement.getLocation().getY() + (startElement.getSize().getHeight() / 2);
+        int endX = endElement.getLocation().getX() + (endElement.getSize().getWidth() / 2);
+        int endY = endElement.getLocation().getY() + (endElement.getSize().getHeight() / 2);
+
+        TouchAction touchAction = new TouchAction(DriverConfig.getDriver());
+                touchAction.press(point(startX,startY))
+                        .moveTo(point(endX,  endY))
+                        .release();
     }
 
 }
