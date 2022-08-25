@@ -56,7 +56,7 @@ public class ChatNow {
         Assert.assertTrue(ActionUtils.isElementPresent(chatThreadPage.getSellerName(), 120));
         Assert.assertTrue(ActionUtils.isElementPresent(chatThreadPage.getPropertyDetails(), 40));
         Assert.assertTrue(ActionUtils.isElementPresent(chatThreadPage.getMessageTextBox(), 40));
-        ActionUtils.clickButton(chatThreadPage.getHelloPill());
+        ActionUtils.clickButton(chatThreadPage.getPills().get(0));
         ActionUtils.clickButton(chatThreadPage.getSendButton());
         Thread.sleep(10000);
     }

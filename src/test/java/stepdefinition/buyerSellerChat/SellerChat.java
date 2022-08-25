@@ -1,9 +1,14 @@
 package stepdefinition.buyerSellerChat;
 
 import io.appium.java_client.MobileElement;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+//import modals.InboxMessageThread;
 import modals.NeverMissCustomerModal;
 import modals.ReportedListingModal;
+import org.testng.Assert;
 import pages.ChatInboxPage;
 import pages.ChatThreadPage;
 import pages.onboarding.WelcomePage;
@@ -12,6 +17,7 @@ import pages.sellerAppPages.LoginPage;
 import util.ActionUtils;
 
 import java.util.List;
+import java.util.Objects;
 
 public class SellerChat {
 
@@ -28,30 +34,34 @@ public class SellerChat {
         ActionUtils.clickButton(reportedListingModal.getIWillDoLater());
     }
 
-    @Given("seller opens chat inbox")
+    @When("seller opens chat inbox")
     public void sellerOpensChatInbox() {
         HomePage homePage = new HomePage();
+        Assert.assertTrue(homePage.isUnreadMessageExist());
         ActionUtils.clickButton(homePage.getFloatingCta());
     }
 
-    @Given("Buyer message should be visible")
+    @Then("Buyer message should be visible")
     public void buyerMessageShouldBeVisible() {
         ChatInboxPage chatInboxPage = new ChatInboxPage();
-        chatThread = chatInboxPage.getUnreadThreads();
+//        InboxMessageThread inboxMessageThread = new InboxMessageThread(chatInboxPage, 0);
+//        MobileElement buyerThread= ActionUtils.scroll("text", "Hemidail");
+//        Assert.assertTrue(Objects.nonNull(chatInboxPage.getUnreadCount().get(0)));
+//        Assert.assertEquals(inboxMessageThread.getName().getText(), "Manthan patel");
+//        Assert.assertTrue(inboxMessageThread.getUnreadCount().isDisplayed());
+        MobileElement element = chatInboxPage.getUnreadCount(0);
+        Assert.assertTrue(element.isDisplayed());
+        Assert.assertEquals(chatInboxPage.getName(0).getText(), "Hemidail");
+        ActionUtils.clickButton(chatInboxPage.getChatThreads().get(0));
     }
 
-    @Given("Seller replies back")
+    @And("Seller replies back")
     public void sellerRepliesBack() {
-
         ChatThreadPage chatThreadPage = new ChatThreadPage();
-        for (int i=0;i< chatThread.size(); i++){
-            ActionUtils.clickButton(chatThread.get(i));
-            ActionUtils.clickButton(chatThreadPage.getHelloPill());
-            ActionUtils.clickButton(chatThreadPage.getSendButton());
-            ActionUtils.gestureBack();
-        }
+        ActionUtils.clickButton(chatThreadPage.getPills().get(0));
+        ActionUtils.clickButton(chatThreadPage.getSendButton());
+    }
 
     }
 
 
-}
