@@ -1,4 +1,4 @@
-Feature: Seller is able to recieve and send messages
+Feature: Seller is able to recieve messages
 
   @Test1
   Scenario: Seller recieves message from buyer

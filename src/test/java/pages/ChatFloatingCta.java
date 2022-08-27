@@ -8,6 +8,9 @@ import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import util.ActionUtils;
 
 @Getter
@@ -17,9 +20,15 @@ public class ChatFloatingCta {
     private MobileElement floatingCta;
 
     public boolean isUnreadMessageExist(){
-        String name = "//android.view.ViewGroup";
-        ActionUtils.waitForVisibilityOf(floatingCta.findElement(MobileBy.xpath(name)));
-        return true;
+        String name = "//android.view.ViewGroup[@index='1']";
+        WebDriverWait webDriverWait = new WebDriverWait(DriverConfig.getDriver(), 6000);
+        try {
+            webDriverWait.until(ExpectedConditions.presenceOfNestedElementLocatedBy(floatingCta, MobileBy.xpath(name)));
+            return true;
+        }catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public ChatFloatingCta(){

@@ -7,7 +7,10 @@ import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import lombok.Getter;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +27,9 @@ public class ChatInboxPage {
 //    private MobileElement propertyDetails;
 
     public MobileElement getUnreadCount(int index){
-        String unreadCount = "(//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup)[3]";
+        WebDriverWait webDriverWait = new WebDriverWait(DriverConfig.getDriver(), 1000);
+        String unreadCount = "(//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[@index='5'])";
+        webDriverWait.until(ExpectedConditions.presenceOfNestedElementLocatedBy(chatThreads.get(index), By.xpath(unreadCount)));
         return chatThreads.get(index).findElement(MobileBy.xpath(unreadCount));
     }
 

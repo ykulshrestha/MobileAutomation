@@ -15,7 +15,7 @@ public class SearchLocalityPage {
     @AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.EditText")
     private MobileElement SearchTextBox;
 
-    @AndroidFindBy(id = "SearchButton")
+    @AndroidFindBy(accessibility = "results_searchLocality")
     private MobileElement SearchButton;
 
     @AndroidFindBy(xpath = "//android.view.ViewGroup[contains(@content-desc,'filter_localitySelect')]/android.view.ViewGroup/android.widget.TextView[1]")
