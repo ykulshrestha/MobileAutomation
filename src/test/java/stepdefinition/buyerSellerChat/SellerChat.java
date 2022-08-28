@@ -11,6 +11,7 @@ import modals.InboxMessageThread;
 import modals.NeverMissCustomerModal;
 import modals.ReportedListingModal;
 import org.testng.Assert;
+import pages.ChatFloatingCta;
 import pages.ChatInboxPage;
 import pages.ChatThreadPage;
 import pages.onboarding.WelcomePage;
@@ -46,9 +47,10 @@ public class SellerChat {
     @Then("Buyer message should be visible")
     public void buyerMessageShouldBeVisible() {
         ChatInboxPage chatInboxPage = new ChatInboxPage();
-        Assert.assertTrue(chatInboxPage.getUnreadCount(0).isDisplayed());
+        Assert.assertTrue(chatInboxPage.waitForVisibilityOfUnreadCount(0, 600));
+//        Assert.assertTrue(chatInboxPage.getUnreadCount(0).isDisplayed());
 //        Assert.assertTrue(ActionUtils.isElementPresent(element, 6000));
-        Assert.assertEquals(chatInboxPage.getName(0).getText(), "Manthan patel");
+        Assert.assertEquals(chatInboxPage.getName(0).getText(), "Abc");
         ActionUtils.clickButton(chatInboxPage.getChatThreads().get(0));
 
     }

@@ -11,7 +11,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import util.ActionUtils;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -22,15 +24,33 @@ public class ChatInboxPage {
     @AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup")
     private List<MobileElement> chatThreads;
 
-//    private MobileElement unreadCount;
-//    private MobileElement name;
-//    private MobileElement propertyDetails;
+    @AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup")
+    private MobileElement back;
+
+//
 
     public MobileElement getUnreadCount(int index){
-        WebDriverWait webDriverWait = new WebDriverWait(DriverConfig.getDriver(), 1000);
         String unreadCount = "(//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[@index='5'])";
-        webDriverWait.until(ExpectedConditions.presenceOfNestedElementLocatedBy(chatThreads.get(index), By.xpath(unreadCount)));
         return chatThreads.get(index).findElement(MobileBy.xpath(unreadCount));
+    }
+
+    public boolean waitForVisibilityOfUnreadCount(int index, int timeOutInSeconds){
+        ChatFloatingCta chatFloatingCta = new ChatFloatingCta();
+        String unreadCount = "(//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[@index='5'])";
+        long start = System.currentTimeMillis();
+        long end = start + timeOutInSeconds * 1000;
+        while (chatThreads.get(index).findElements(MobileBy.xpath(unreadCount)).size() == 0 && System.currentTimeMillis() < end){
+            try {
+                Thread.sleep(25000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            ActionUtils.clickButton(this.getBack());
+            ActionUtils.clickButton(chatFloatingCta.getFloatingCta());
+        }
+        if (chatThreads.get(index).findElements(MobileBy.xpath(unreadCount)).size() > 0)
+            return true;
+        return false;
     }
 
     public MobileElement getName(int index){
