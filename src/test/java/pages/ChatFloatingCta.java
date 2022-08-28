@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import util.ActionUtils;
+import utils.AppUtil;
 
 @Getter
 public class ChatFloatingCta {
@@ -21,14 +22,7 @@ public class ChatFloatingCta {
 
     public boolean isUnreadMessageExist(){
         String name = "//android.view.ViewGroup[@index='1']";
-        WebDriverWait webDriverWait = new WebDriverWait(DriverConfig.getDriver(), 6000);
-        try {
-            webDriverWait.until(ExpectedConditions.presenceOfNestedElementLocatedBy(floatingCta, MobileBy.xpath(name)));
-            return true;
-        }catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+        return ActionUtils.isElementPresent(floatingCta.findElement(MobileBy.xpath(name)), 5);
     }
 
     public ChatFloatingCta(){

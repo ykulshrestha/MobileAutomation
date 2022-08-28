@@ -1,16 +1,12 @@
 package base;
 
-import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
 import configs.DriverConfig;
-import configs.ServerConfig;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.testng.annotations.Parameters;
-import util.Installation;
 
 import java.io.File;
 import java.io.IOException;

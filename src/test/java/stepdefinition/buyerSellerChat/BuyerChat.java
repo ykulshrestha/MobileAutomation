@@ -27,7 +27,7 @@ public class BuyerChat {
         appUtil.buyerOnboarding();
         ActionUtils.clickButton(homePage.getTabs().getProfileTab());
         ActionUtils.clickButton(profilePage.getLoginButton());
-        loginModal.loginWithPassword("7317141087", "12345");
+        loginModal.loginWithPassword("7317141086", "12345");
         ActionUtils.clickButton(profilePage.getTabs().getSearch());
         ActionUtils.clickButton(homePage.getBuy());
         ActionUtils.sendText(searchLocalityPage.getSearchTextBox(), "Makadwali");

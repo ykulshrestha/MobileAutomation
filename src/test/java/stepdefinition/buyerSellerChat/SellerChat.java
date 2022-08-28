@@ -50,7 +50,7 @@ public class SellerChat {
         Assert.assertTrue(chatInboxPage.waitForVisibilityOfUnreadCount(0, 600));
 //        Assert.assertTrue(chatInboxPage.getUnreadCount(0).isDisplayed());
 //        Assert.assertTrue(ActionUtils.isElementPresent(element, 6000));
-        Assert.assertEquals(chatInboxPage.getName(0).getText(), "Abc");
+        Assert.assertEquals(chatInboxPage.getName(0).getText(), "Xzzzz");
         ActionUtils.clickButton(chatInboxPage.getChatThreads().get(0));
 
     }
