@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite" parallel="tests" thread-count="2" >
+    <test name="Seller case">
+        <parameter name="AUTOMATION_NAME" value="Appium"/>
+        <parameter name="PLATFORM_NAME" value="Android"/>
+        <parameter name="DEVICE_NAME" value="Android Emulator"/>
+        <parameter name="PLATFORM_VERSION" value="11.0"/>
+        <parameter name="APP" value="/src/main/resources/builds/apk/app-gamma-release.apk"/>
+        <parameter name="AVD" value="Pixel_4a_API_30"/>
+        <classes>
+            <class name="runner.LoginRunner"/>
+        </classes>
+    </test>
+</suite>
+
+

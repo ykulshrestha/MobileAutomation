@@ -33,7 +33,7 @@ public class SellerChat {
         ReportedListingModal reportedListingModal = new ReportedListingModal();
         ActionUtils.clickButton(welcomePage.getPostYourProperty());
         loginPage.loginWithPassword("6111111111", "housing@1234");
-        ActionUtils.clickButton(neverMissCustomerModal.getLater());
+//        ActionUtils.clickButton(neverMissCustomerModal.getLater());
         ActionUtils.clickButton(reportedListingModal.getIWillDoLater());
     }
 
@@ -47,10 +47,10 @@ public class SellerChat {
     @Then("Buyer message should be visible")
     public void buyerMessageShouldBeVisible() {
         ChatInboxPage chatInboxPage = new ChatInboxPage();
+        Assert.assertEquals(chatInboxPage.getName(0).getText(), "Xzzzz");
         Assert.assertTrue(chatInboxPage.waitForVisibilityOfUnreadCount(0, 600));
 //        Assert.assertTrue(chatInboxPage.getUnreadCount(0).isDisplayed());
 //        Assert.assertTrue(ActionUtils.isElementPresent(element, 6000));
-        Assert.assertEquals(chatInboxPage.getName(0).getText(), "Xzzzz");
         ActionUtils.clickButton(chatInboxPage.getChatThreads().get(0));
 
     }

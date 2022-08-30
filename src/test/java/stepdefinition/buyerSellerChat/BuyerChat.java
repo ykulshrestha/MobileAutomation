@@ -39,13 +39,13 @@ public class BuyerChat {
     }
 
     @When("Buyer click on Chat Now")
-    public void buyerClicksOnChatNow() {
+    public void Buyer_click_on_Chat_Now() {
         DetailsPage detailsPage = new DetailsPage();
         ActionUtils.clickButton(detailsPage.getChatNow());
     }
 
     @Then("Buyer sends message to seller")
-    public void chatScreenIsVisibleToUser() {
+    public void Buyer_sends_message_to_seller() {
         ChatThreadPage chatThreadPage = new ChatThreadPage();
         Assert.assertTrue(ActionUtils.isElementPresent(chatThreadPage.getSellerName(), 120));
         Assert.assertTrue(ActionUtils.isElementPresent(chatThreadPage.getPropertyDetails(), 40));
