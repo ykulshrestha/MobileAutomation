@@ -23,7 +23,7 @@ public class Loginflow {
     @When("User login by using number and password")
     public void userLoginByUsingNumberAndPassword() {
         LoginModal loginModal = new LoginModal();
-        ActionUtils.sendText(loginModal.getEnterPhone(), "7317141087");
+        ActionUtils.sendText(loginModal.getEnterPhone(), "7317126716");
         ActionUtils.clickButton(loginModal.getContinueButton());
         ActionUtils.clickButton(loginModal.getLoginWithPassword());
         ActionUtils.sendText(loginModal.getPasswordTextbox(), "111111");
@@ -32,6 +32,6 @@ public class Loginflow {
 
     @Then("Login failed with toast")
     public void loginFailedWithToast() {
-        Assert.assertTrue(ActionUtils.getErrorToast(ErrorMessageEnums.TRY_AGAIN_CORRECT_CREDENTIALS.value()).isDisplayed());
+        Assert.assertTrue(ActionUtils.getToast(ErrorMessageEnums.TRY_AGAIN_CORRECT_CREDENTIALS.value()).isDisplayed());
     }
 }

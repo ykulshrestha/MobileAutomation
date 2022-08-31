@@ -33,12 +33,15 @@ public class ChatInboxPage {
         return chatThreads.get(index).findElement(MobileBy.xpath(unreadCount));
     }
 
-    public boolean waitForVisibilityOfUnreadCount(int index, int timeOutInSeconds){
+    public boolean waitForVisibilityOfUnreadCount(int index, String senderName, int timeOutInSeconds){
         ChatFloatingCta chatFloatingCta = new ChatFloatingCta();
         String unreadCount = "(//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[@index='5'])";
+        String name = "(//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[@index='2'])[1]";
         long start = System.currentTimeMillis();
         long end = start + timeOutInSeconds * 1000;
-        while (chatThreads.get(index).findElements(MobileBy.xpath(unreadCount)).size() == 0 && System.currentTimeMillis() < end){
+        while ((chatThreads.get(index).findElements(MobileBy.xpath(unreadCount)).size() == 0
+        || !chatThreads.get(index).findElement(MobileBy.xpath(name)).getText().equalsIgnoreCase(senderName))
+                && System.currentTimeMillis() < end){
             try {
                 Thread.sleep(25000);
             } catch (InterruptedException e) {
@@ -47,7 +50,8 @@ public class ChatInboxPage {
             ActionUtils.clickButton(this.getBack());
             ActionUtils.clickButton(chatFloatingCta.getFloatingCta());
         }
-        if (chatThreads.get(index).findElements(MobileBy.xpath(unreadCount)).size() > 0)
+        if (chatThreads.get(index).findElements(MobileBy.xpath(unreadCount)).size() > 0
+                && chatThreads.get(index).findElement(MobileBy.xpath(name)).getText().equalsIgnoreCase(senderName))
             return true;
         return false;
     }

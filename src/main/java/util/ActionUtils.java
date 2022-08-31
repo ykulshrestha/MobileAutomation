@@ -6,6 +6,7 @@ import io.appium.java_client.FindsByAndroidUIAutomator;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
+import io.cucumber.java.en_old.Ac;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import io.appium.java_client.MobileElement;
@@ -33,6 +34,16 @@ public class ActionUtils {
             wait.until(ExpectedConditions.visibilityOf(element));
         } catch (Exception e) {
             logger.error("{} element is not present ", element.getText());
+            logger.error(e.getStackTrace());
+            e.printStackTrace();
+        }
+    }
+
+    public static void waitForVisibilityOf(List<MobileElement> element) {
+        WebDriverWait wait = new WebDriverWait(DriverConfig.getDriver(), 30);
+        try {
+            wait.until(ExpectedConditions.visibilityOfAllElements((WebElement) element));
+        } catch (Exception e) {
             logger.error(e.getStackTrace());
             e.printStackTrace();
         }
@@ -88,13 +99,14 @@ public class ActionUtils {
     }
 
     public static MobileElement elementWithMatchingText(List<MobileElement> elementsList, String text) {
+        waitForVisibilityOf(elementsList);
         for (MobileElement i : elementsList) {
             if (i.getText().equalsIgnoreCase(text))
                 return i;
         }
         return null;
     }
-    
+
     public static MobileElement findElementBylocators(String locatorsEnum, String value){
         switch (locatorsEnum)
         {
@@ -116,11 +128,18 @@ public class ActionUtils {
         throw new RuntimeException("attribute type not supported/added");
     }
 
-    public static MobileElement getErrorToast(String errorMessageEnums){
-        waitForVisibilityOf(ActionUtils.findElementBylocators(LocatorsEnum.XPATH.value(),
-                "//*[@text = \'" + errorMessageEnums +"\']"));
+    public static MobileElement getToast(String errorMessageEnums){
+        WebDriverWait webDriverWait = new WebDriverWait(DriverConfig.getDriver(), 200);
+        String errorString = "//*[@text=\'" + errorMessageEnums +"\']";
+        try {
+            webDriverWait.until(ExpectedConditions.visibilityOf(DriverConfig.getDriver().findElement(MobileBy.xpath(
+                    "//*[@text=\'" + errorMessageEnums + "\']"))));
+        } catch (Exception e) {
+            logger.error(e.getStackTrace());
+            e.printStackTrace();
+        }
         return ActionUtils.findElementBylocators(LocatorsEnum.XPATH.value(),
-                "//*[@text = \'" + errorMessageEnums +"\']");
+                errorString);
     }
 
     //TODO: Function not working as expected

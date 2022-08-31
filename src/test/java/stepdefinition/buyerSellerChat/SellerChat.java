@@ -47,12 +47,9 @@ public class SellerChat {
     @Then("Buyer message should be visible")
     public void buyerMessageShouldBeVisible() {
         ChatInboxPage chatInboxPage = new ChatInboxPage();
-        Assert.assertEquals(chatInboxPage.getName(0).getText(), "Xzzzz");
-        Assert.assertTrue(chatInboxPage.waitForVisibilityOfUnreadCount(0, 600));
-//        Assert.assertTrue(chatInboxPage.getUnreadCount(0).isDisplayed());
-//        Assert.assertTrue(ActionUtils.isElementPresent(element, 6000));
+        Assert.assertTrue(chatInboxPage.waitForVisibilityOfUnreadCount(0, "Abc", 600));
+        Assert.assertEquals(chatInboxPage.getName(0).getText(), "Abc");
         ActionUtils.clickButton(chatInboxPage.getChatThreads().get(0));
-
     }
 
     @And("Seller replies back")
