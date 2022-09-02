@@ -38,9 +38,8 @@ public class SellerChat {
     }
 
     @When("seller opens chat inbox")
-    public void sellerOpensChatInbox() throws InterruptedException {
+    public void sellerOpensChatInbox() {
         HomePage homePage = new HomePage();
-//        Assert.assertTrue(homePage.isUnreadMessageExist());
         ActionUtils.clickButton(homePage.getFloatingCta());
     }
 

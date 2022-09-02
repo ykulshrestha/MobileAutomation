@@ -26,6 +26,12 @@ public class RunnerBase extends AbstractTestNGCucumberTests {
 
     private static final Logger logger = LogManager.getLogger(BaseCapabilitiesUtil.class);
 
+    @BeforeSuite
+    public void startAppiumServer(){
+        System.out.println("Executing before suite-----------");
+        new ServerConfig().startServer();
+
+    }
 
     @BeforeTest
     @Parameters({"AUTOMATION_NAME",
@@ -41,7 +47,6 @@ public class RunnerBase extends AbstractTestNGCucumberTests {
                     APP, String
                     AVD){
         System.out.println("executing before test==========================");
-        new ServerConfig().startServer();
         DesiredCapabilities desiredCapabilities = new BaseCapabilitiesUtil().setCapability();
         desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, AUTOMATION_NAME);
         desiredCapabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, PLATFORM_VERSION);
@@ -58,14 +63,16 @@ public class RunnerBase extends AbstractTestNGCucumberTests {
 
         if (PLATFORM_NAME.equalsIgnoreCase("Android"))
             try {
-                DriverConfig.setDriver(new AndroidDriver<MobileElement>(new URL(new ConfigUtil().readProperties(Constant.APPIUM_PROPERTIES).get("url").toString()), desiredCapabilities));
+                DriverConfig.setDriver(new AndroidDriver<MobileElement>(new URL(new ConfigUtil().readProperties(
+                        Constant.APPIUM_PROPERTIES).get("url").toString()), desiredCapabilities));
             } catch (Exception e) {
                 logger.error("Error occurred while creating Android driver {} ", e.getMessage());
                 e.printStackTrace();
             }
         if (PLATFORM_NAME.equalsIgnoreCase("ios"))
             try {
-                DriverConfig.setDriver(new IOSDriver<MobileElement>(new URL(new ConfigUtil().readProperties(Constant.APPIUM_PROPERTIES).get("url").toString()), desiredCapabilities));
+                DriverConfig.setDriver(new IOSDriver<MobileElement>(new URL(new ConfigUtil().readProperties(
+                        Constant.APPIUM_PROPERTIES).get("url").toString()), desiredCapabilities));
             } catch (MalformedURLException e) {
                 logger.error("Error occurred while creating ios driver {} ", e.getMessage());
                 e.printStackTrace();
@@ -81,8 +88,7 @@ public class RunnerBase extends AbstractTestNGCucumberTests {
     @AfterSuite
     public void tearDown()
     {
-        if(ServerConfig.getServer() != null) {
+        if(ServerConfig.getServer() != null)
             ServerConfig.getServer().stop();
-        }
     }
 }

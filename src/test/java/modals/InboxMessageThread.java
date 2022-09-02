@@ -18,17 +18,6 @@ import java.util.List;
 @Getter
 public class InboxMessageThread {
 
-//    @AndroidFindBy(xpath = "/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[1]")
-//    private MobileElement name;
-
-//    @AndroidFindBy(xpath = "(//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup)[3]")
-//    private MobileElement unreadCount;
-
-//    @AndroidFindBy(xpath = "(.//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[@index='2'])[1]")
-//    private MobileElement name;
-//
-//    @AndroidFindBy(xpath = ".(//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[@index='2'])[1]")
-//    private MobileElement name2;
     @AndroidFindBy(xpath = ".//(android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[@index='2'])[1]")
     private MobileElement name3;
 

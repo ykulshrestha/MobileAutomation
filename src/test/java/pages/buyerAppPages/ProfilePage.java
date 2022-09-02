@@ -20,7 +20,7 @@ public class ProfilePage {
     private MobileElement loginButton;
 
     public ProfilePage() {
-        tabs = Tabs.getInstance();
+        tabs = new Tabs();
         PageFactory.initElements(new AppiumFieldDecorator(DriverConfig.getDriver()), this);
     }
 

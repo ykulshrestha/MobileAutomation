@@ -15,9 +15,7 @@ import java.net.MalformedURLException;
 public class Hooks {
 
     @Before
-    public void initializeTest() throws MalformedURLException {
-//        new ServerConfig().startServer();
-//        DriverConfig.setDriver(new Installation().getDriver());
+    public void initializeTest() {
         DriverConfig.getDriver().resetApp();
         }
 

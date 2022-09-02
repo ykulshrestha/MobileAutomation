@@ -29,21 +29,11 @@ public class ActionUtils {
 
     //This function is used to add wait condition for any element
     public static void waitForVisibilityOf(MobileElement element) {
-        WebDriverWait wait = new WebDriverWait(DriverConfig.getDriver(), 30);
+        WebDriverWait wait = new WebDriverWait(DriverConfig.getDriver(), 1000);
         try {
             wait.until(ExpectedConditions.visibilityOf(element));
         } catch (Exception e) {
             logger.error("{} element is not present ", element.getText());
-            logger.error(e.getStackTrace());
-            e.printStackTrace();
-        }
-    }
-
-    public static void waitForVisibilityOf(List<MobileElement> element) {
-        WebDriverWait wait = new WebDriverWait(DriverConfig.getDriver(), 30);
-        try {
-            wait.until(ExpectedConditions.visibilityOfAllElements((WebElement) element));
-        } catch (Exception e) {
             logger.error(e.getStackTrace());
             e.printStackTrace();
         }
@@ -99,7 +89,6 @@ public class ActionUtils {
     }
 
     public static MobileElement elementWithMatchingText(List<MobileElement> elementsList, String text) {
-        waitForVisibilityOf(elementsList);
         for (MobileElement i : elementsList) {
             if (i.getText().equalsIgnoreCase(text))
                 return i;
@@ -128,21 +117,20 @@ public class ActionUtils {
         throw new RuntimeException("attribute type not supported/added");
     }
 
-    public static MobileElement getToast(String errorMessageEnums){
-        WebDriverWait webDriverWait = new WebDriverWait(DriverConfig.getDriver(), 200);
-        String errorString = "//*[@text=\'" + errorMessageEnums +"\']";
+    public static MobileElement getToast(String errorMessageEnums, int timeOutInSeconds) {
         try {
-            webDriverWait.until(ExpectedConditions.visibilityOf(DriverConfig.getDriver().findElement(MobileBy.xpath(
-                    "//*[@text=\'" + errorMessageEnums + "\']"))));
+            long start = System.currentTimeMillis();
+            long end = start + timeOutInSeconds * 1000;
+            while (DriverConfig.getDriver().findElements(MobileBy.xpath("//*[@text=\'"+errorMessageEnums+"\']")).
+                    size() == 0 || System.currentTimeMillis() < end){}
+            return findElementBylocators(LocatorsEnum.XPATH.value(), "//*[@text=\'"+errorMessageEnums+"\']");
         } catch (Exception e) {
             logger.error(e.getStackTrace());
             e.printStackTrace();
         }
-        return ActionUtils.findElementBylocators(LocatorsEnum.XPATH.value(),
-                errorString);
+        return null;
     }
 
-    //TODO: Function not working as expected
     public static void dragOperation(MobileElement startElement, MobileElement endElement) {
         int startX = startElement.getLocation().getX() + (startElement.getSize().getWidth() / 2);
         int startY = startElement.getLocation().getY() + (startElement.getSize().getHeight() / 2);

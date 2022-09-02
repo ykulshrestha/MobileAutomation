@@ -31,7 +31,7 @@ public class Loginflow {
     }
 
     @Then("Login failed with toast")
-    public void loginFailedWithToast() {
-        Assert.assertTrue(ActionUtils.getToast(ErrorMessageEnums.TRY_AGAIN_CORRECT_CREDENTIALS.value()).isDisplayed());
+    public void loginFailedWithToast() throws InterruptedException {
+        Assert.assertTrue(ActionUtils.getToast(ErrorMessageEnums.TRY_AGAIN_CORRECT_CREDENTIALS.value(), 10).isDisplayed());
     }
 }

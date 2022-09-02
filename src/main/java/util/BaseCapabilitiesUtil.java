@@ -28,7 +28,7 @@ public class BaseCapabilitiesUtil {
             desiredCapabilities.setCapability(IOSMobileCapabilityType.AUTO_ACCEPT_ALERTS, "true"); //to accept all alerts
         logger.info("{} = {}",AndroidMobileCapabilityType.AUTO_GRANT_PERMISSIONS, capabilityMap.get("AUTO_GRANT_PERMISSIONS"));
 
-        desiredCapabilities.setCapability(MobileCapabilityType.FULL_RESET, capabilityMap.get("FULL_RESET"));
+//        desiredCapabilities.setCapability(MobileCapabilityType.FULL_RESET, capabilityMap.get("FULL_RESET"));
 //        desiredCapabilities.setCapability(MobileCapabilityType.CLEAR_SYSTEM_FILES, "true");
         logger.info("{} = {}",MobileCapabilityType.FULL_RESET, capabilityMap.get("FULL_RESET"));
         return desiredCapabilities;

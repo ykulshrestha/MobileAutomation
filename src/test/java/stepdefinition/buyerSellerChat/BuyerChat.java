@@ -27,7 +27,7 @@ public class BuyerChat {
         appUtil.buyerOnboarding("Ajmer");
         ActionUtils.clickButton(homePage.getTabs().getProfileTab());
         ActionUtils.clickButton(profilePage.getLoginButton());
-        loginModal.loginWithPassword("7317198778", "12345");
+        loginModal.loginWithPassword("7317193042", "12345");
         ActionUtils.clickButton(profilePage.getTabs().getSearch());
         ActionUtils.clickButton(homePage.getBuy());
         ActionUtils.sendText(searchLocalityPage.getSearchTextBox(), "Makadwali");
@@ -47,7 +47,7 @@ public class BuyerChat {
     @Then("Buyer sends message to seller")
     public void Buyer_sends_message_to_seller() {
         ChatThreadPage chatThreadPage = new ChatThreadPage();
-        Assert.assertTrue(ActionUtils.isElementPresent(chatThreadPage.getSellerName(), 2000));
+        Assert.assertTrue(ActionUtils.isElementPresent(chatThreadPage.getSellerName(), 5000));
         Assert.assertTrue(ActionUtils.isElementPresent(chatThreadPage.getPropertyDetails(), 100));
         Assert.assertTrue(ActionUtils.isElementPresent(chatThreadPage.getMessageTextBox(), 100));
         ActionUtils.clickButton(chatThreadPage.getPills().get(0));
