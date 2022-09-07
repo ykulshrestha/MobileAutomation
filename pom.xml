@@ -94,6 +94,16 @@
                 <version>2.13.0</version>
             </dependency>
 
+
+
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
+            <version>3.1.6</version>
+            <scope>compile</scope>
+        </dependency>
+
+
     </dependencies>
 
     <properties>
@@ -118,6 +128,9 @@
                     </resource>
                     <resource>
                         <directory>src/main/resources/appium</directory>
+                    </resource>
+                    <resource>
+                        <directory>src/main/resources</directory>
                     </resource>
                 </resources>
             </build>

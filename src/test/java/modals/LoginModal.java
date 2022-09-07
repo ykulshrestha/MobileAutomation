@@ -78,10 +78,6 @@ public class LoginModal {
     }
 
     //TODO: Object should be created from Dedicated pages only
-    public static LoginModal getInstance(){
-        return null;
-    }
-
 
     public void loginWithPassword(String phoneNumber, String password){
         ActionUtils.sendText(enterPhone, phoneNumber);

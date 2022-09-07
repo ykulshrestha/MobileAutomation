@@ -12,8 +12,6 @@ import java.util.Objects;
 @Getter
 public class Tabs {
 
-    private static Tabs tabs;
-
     @AndroidFindBy(accessibility = "home_profileButton")
     private MobileElement profileTab;
 

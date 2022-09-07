@@ -13,13 +13,13 @@ import pages.Tabs;
 public class ProfilePage {
 
     private LoginModal loginModal;
-
     private Tabs tabs;
 
     @AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[3]")
     private MobileElement loginButton;
 
     public ProfilePage() {
+        loginModal = new LoginModal();
         tabs = new Tabs();
         PageFactory.initElements(new AppiumFieldDecorator(DriverConfig.getDriver()), this);
     }

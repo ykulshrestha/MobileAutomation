@@ -6,7 +6,6 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import modals.LoginModal;
 import org.testng.Assert;
-import pages.buyerAppPages.*;
 import util.ActionUtils;
 import utils.AppUtil;
 
