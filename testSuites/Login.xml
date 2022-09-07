@@ -8,6 +8,7 @@
         <parameter name="PLATFORM_VERSION" value="11.0"/>
         <parameter name="APP" value="/src/main/resources/builds/apk/app-gamma-release.apk"/>
         <parameter name="AVD" value="Pixel_4a_API_30_1"/>
+        <parameter name="UDID" value="emulator-5554"/>
         <classes>
             <class name="runner.LoginRunner"/>
         </classes>

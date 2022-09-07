@@ -39,13 +39,14 @@ public class RunnerBase extends AbstractTestNGCucumberTests {
             "DEVICE_NAME",
             "PLATFORM_VERSION",
             "APP",
-            "AVD"})
+            "AVD",
+            "UDID"})
     public void beforeTest(String AUTOMATION_NAME, String
             PLATFORM_NAME, String
                     DEVICE_NAME, String
                     PLATFORM_VERSION,String
                     APP, String
-                    AVD){
+                    AVD, String UDID){
         System.out.println("executing before test==========================");
         DesiredCapabilities desiredCapabilities = new BaseCapabilitiesUtil().setCapability();
         desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, AUTOMATION_NAME);
@@ -57,6 +58,7 @@ public class RunnerBase extends AbstractTestNGCucumberTests {
         desiredCapabilities.setCapability(AndroidMobileCapabilityType.AVD, AVD);
 //        if (PLATFORM_NAME.equalsIgnoreCase("ios"))
 //            desiredCapabilities.setCapability(IOSMobileCapabilityType., AVD);
+        desiredCapabilities.setCapability(MobileCapabilityType.UDID, UDID);
 
 
         logger.info("Platform type is "+ PLATFORM_NAME + ", creating "+ desiredCapabilities.getCapability(MobileCapabilityType.PLATFORM_NAME) + "driver");
