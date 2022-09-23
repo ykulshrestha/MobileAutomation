@@ -18,7 +18,7 @@ public class WelcomePage {
     @AndroidFindBy(id = "PayOnCredit")
     private MobileElement PayOnCredit;
 
-    @AndroidFindBy(id = "PostYourProperty")
+    @AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup")
     private MobileElement PostYourProperty;
 
     @AndroidFindBy(id = "HomeRelatedServices")

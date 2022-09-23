@@ -12,8 +12,6 @@ import java.util.Objects;
 @Getter
 public class Tabs {
 
-    private static Tabs tabs;
-
     @AndroidFindBy(accessibility = "home_profileButton")
     private MobileElement profileTab;
 
@@ -29,14 +27,7 @@ public class Tabs {
     @AndroidFindBy(accessibility = "home_searchButton")
     private MobileElement search;
 
-    public static Tabs getInstance(){
-        if (Objects.nonNull(tabs))
-                return tabs;
-        tabs = new Tabs();
-        return tabs;
-    }
-
-    private Tabs() {
+     public Tabs() {
         PageFactory.initElements(new AppiumFieldDecorator(DriverConfig.getDriver()), this);
     }
 

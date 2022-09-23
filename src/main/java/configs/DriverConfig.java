@@ -4,13 +4,13 @@ import io.appium.java_client.AppiumDriver;
 
 public class DriverConfig {
 
-    private static AppiumDriver driver;
+    private static ThreadLocal<AppiumDriver> driver = new ThreadLocal<>();
 
-    public static AppiumDriver getDriver() {
-        return driver;
+    public static synchronized AppiumDriver getDriver() {
+        return driver.get();
     }
 
     public static void setDriver(AppiumDriver appiumDriver) {
-        driver = appiumDriver;
+        driver.set(appiumDriver);
     }
 }

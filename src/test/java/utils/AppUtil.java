@@ -8,15 +8,15 @@ import util.ActionUtils;
 
 public class AppUtil {
 
-    public void buyerOnboarding()  {
+    public void buyerOnboarding(String city)  {
         WelcomePage welcomePage = new WelcomePage();
         CategoryPage categoryPage = new CategoryPage();
         CitySelectPage citySelectPage = new CitySelectPage();
         LocalitySelectPage localitySelectPage = new LocalitySelectPage();
         ActionUtils.clickButton(welcomePage.getHomeSearch());
         ActionUtils.clickButton(categoryPage.getBuy());
-        ActionUtils.sendText(citySelectPage.getCityTextBox(), "Delhi");
-        ActionUtils.clickButton(ActionUtils.elementWithMatchingText(citySelectPage.getElements(),"Delhi"));
+        ActionUtils.sendText(citySelectPage.getCityTextBox(), city);
+        ActionUtils.clickButton(ActionUtils.elementWithMatchingText(citySelectPage.getElements(), city));
 //        ActionUtils.clickButton(citySelectPage.getElements().get(0));
         ActionUtils.clickButton(localitySelectPage.getSkip());
     }

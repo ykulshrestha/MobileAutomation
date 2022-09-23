@@ -1,12 +1,18 @@
 package util;
 
 import configs.DriverConfig;
+import enums.LocatorsEnum;
 import io.appium.java_client.FindsByAndroidUIAutomator;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
+import io.cucumber.java.en_old.Ac;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import io.appium.java_client.MobileElement;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -23,7 +29,7 @@ public class ActionUtils {
 
     //This function is used to add wait condition for any element
     public static void waitForVisibilityOf(MobileElement element) {
-        WebDriverWait wait = new WebDriverWait(DriverConfig.getDriver(), 30);
+        WebDriverWait wait = new WebDriverWait(DriverConfig.getDriver(), 1000);
         try {
             wait.until(ExpectedConditions.visibilityOf(element));
         } catch (Exception e) {
@@ -84,17 +90,47 @@ public class ActionUtils {
 
     public static MobileElement elementWithMatchingText(List<MobileElement> elementsList, String text) {
         for (MobileElement i : elementsList) {
-            if (i.getText().equals(text))
+            if (i.getText().equalsIgnoreCase(text))
                 return i;
         }
         return null;
     }
 
-    public static MobileElement elementWithMatchingText(List<MobileElement> elementsList, int index) {
-        return elementsList.get(index);
+    public static MobileElement findElementBylocators(String locatorsEnum, String value){
+        switch (locatorsEnum)
+        {
+            case "xpath":
+                return (MobileElement) DriverConfig.getDriver().findElement(MobileBy.xpath(value));
+            case "name":
+                return (MobileElement) DriverConfig.getDriver().findElement(MobileBy.name(value));
+            case "AccessibilityId":
+                return (MobileElement) DriverConfig.getDriver().findElement(MobileBy.AccessibilityId(value));
+            case "className":
+                return (MobileElement) DriverConfig.getDriver().findElement(MobileBy.className(value));
+            case "id":
+                return (MobileElement) DriverConfig.getDriver().findElement(MobileBy.id(value));
+            case "linkText":
+                return (MobileElement) DriverConfig.getDriver().findElement(MobileBy.linkText(value));
+            case "partialLinkText":
+                return (MobileElement) DriverConfig.getDriver().findElement(MobileBy.partialLinkText(value));
+        }
+        throw new RuntimeException("attribute type not supported/added");
     }
 
-    //TODO: Function not working as expected
+    public static MobileElement getToast(String errorMessageEnums, int timeOutInSeconds) {
+        try {
+            long start = System.currentTimeMillis();
+            long end = start + timeOutInSeconds * 1000;
+            while (DriverConfig.getDriver().findElements(MobileBy.xpath("//*[@text=\'"+errorMessageEnums+"\']")).
+                    size() == 0 || System.currentTimeMillis() < end){}
+            return findElementBylocators(LocatorsEnum.XPATH.value(), "//*[@text=\'"+errorMessageEnums+"\']");
+        } catch (Exception e) {
+            logger.error(e.getStackTrace());
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static void dragOperation(MobileElement startElement, MobileElement endElement) {
         int startX = startElement.getLocation().getX() + (startElement.getSize().getWidth() / 2);
         int startY = startElement.getLocation().getY() + (startElement.getSize().getHeight() / 2);
