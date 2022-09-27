@@ -14,8 +14,11 @@ import util.ActionUtils;
 @Getter
 public class FilterPage {
 
-    @AndroidFindBy(xpath = "((/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup)[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.widget.HorizontalScrollView)[3]/android.view.ViewGroup")
+    @AndroidFindBy(xpath = "//android.widget.TextView[@text = 'BHK Type']")
     private MobileElement Bhk;
+
+    @AndroidFindBy(xpath = "//android.widget.TextView[@text = 'Sale Type']")
+    private MobileElement saleType;
 
     @AndroidFindBy(accessibility = "filter_viewProperties_button")
     private MobileElement viewProperties;
@@ -23,8 +26,14 @@ public class FilterPage {
     public FilterPage() {
         PageFactory.initElements(new AppiumFieldDecorator(DriverConfig.getDriver()), this);
     }
-    public void setBhk(String index){
-        String bhkType = "(//android.view.ViewGroup[" + index + "]/android.view.ViewGroup/android.widget.ImageView)";
-        ActionUtils.clickButton(Bhk.findElement(MobileBy.xpath(bhkType)));
+    public void setBhk(String bhk){
+        ActionUtils.waitForVisibilityOf(Bhk);
+        String bhkType = "//android.widget.TextView[@text = '" + bhk + "']";
+        ActionUtils.clickButton((MobileElement) DriverConfig.getDriver().findElement(MobileBy.xpath(bhkType)));
+    }
+
+    public void setSaleType(String sale){
+        String saleType = "//android.widget.TextView[@text = '" + sale + "']";
+        ActionUtils.clickButton((MobileElement) DriverConfig.getDriver().findElement(MobileBy.xpath(saleType)));
     }
 }

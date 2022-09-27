@@ -38,19 +38,19 @@ public class BuyerChat {
         ActionUtils.clickButton(serpPage.getPropertyCards().get(1));
     }
 
-    @When("Buyer click on Chat Now")
-    public void Buyer_click_on_Chat_Now() {
-        DetailsPage detailsPage = new DetailsPage();
-        ActionUtils.clickButton(detailsPage.getChatNow());
-    }
+//    @When("Buyer click on Chat Now")
+//    public void Buyer_click_on_Chat_Now() {
+//        DetailsPage detailsPage = new DetailsPage();
+//        ActionUtils.clickButton(detailsPage.getChatNow());
+//    }
 
-    @Then("Buyer sends message to seller")
-    public void Buyer_sends_message_to_seller() {
-        ChatThreadPage chatThreadPage = new ChatThreadPage();
-        Assert.assertTrue(ActionUtils.isElementPresent(chatThreadPage.getSellerName(), 5000));
-        Assert.assertTrue(ActionUtils.isElementPresent(chatThreadPage.getPropertyDetails(), 100));
-        Assert.assertTrue(ActionUtils.isElementPresent(chatThreadPage.getMessageTextBox(), 100));
-        ActionUtils.clickButton(chatThreadPage.getPills().get(0));
-        ActionUtils.clickButton(chatThreadPage.getSendButton());
-    }
+//    @Then("Buyer sends message to seller")
+//    public void Buyer_sends_message_to_seller() {
+//        ChatThreadPage chatThreadPage = new ChatThreadPage();
+//        Assert.assertTrue(ActionUtils.isElementPresent(chatThreadPage.getSellerName(), 5000));
+//        Assert.assertTrue(ActionUtils.isElementPresent(chatThreadPage.getPropertyDetails(), 100));
+//        Assert.assertTrue(ActionUtils.isElementPresent(chatThreadPage.getMessageTextBox(), 100));
+//        ActionUtils.clickButton(chatThreadPage.getPills().get(0));
+//        ActionUtils.clickButton(chatThreadPage.getSendButton());
+//    }
 }

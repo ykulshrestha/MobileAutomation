@@ -11,14 +11,18 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
+import static io.appium.java_client.touch.WaitOptions.waitOptions;
 import static io.appium.java_client.touch.offset.PointOption.point;
+import static java.time.Duration.ofMillis;
 
 
 // This is general actions util class in which actions that can be performed on a element can be added and used throughout across the project
@@ -77,11 +81,89 @@ public class ActionUtils {
                         + "new UiSelector()." + attribute + "(\"" + value + "\"));");
     }
 
+    public static MobileElement androidScroll(MobileElement element, String direction) throws Exception {
+        Dimension size = DriverConfig.getDriver().manage().window().getSize();
+        int startX = (int) (size.width * 0.5);
+        int endX = (int) (size.width * 0.5);
+        int startY = 0;
+        int endY = 0;
+        boolean isFound = false;
+
+        switch (direction) {
+            case "up":
+                endY = (int) (size.height * 0.4);
+                startY = (int) (size.height * 0.6);
+                break;
+
+            case "down":
+                endY = (int) (size.height * 0.6);
+                startY = (int) (size.height * 0.4);
+                break;
+        }
+
+        for (int i = 0; i < 20; i++) {
+            if (find(element, 1)) {
+                isFound = true;
+                break;
+            } else {
+                swipe(startX, startY, endX, endY, 1000);
+            }
+        }
+        if(!isFound){
+            throw new Exception("Element not found");
+        }
+        return element;
+    }
+
+    public static boolean find(final MobileElement element, int timeout) {
+        try {
+            WebDriverWait wait = new WebDriverWait(DriverConfig.getDriver(), timeout);
+            return wait.until(new ExpectedCondition<Boolean>() {
+                @Override
+                public Boolean apply(WebDriver driver) {
+                    if (element.isDisplayed()) {
+                        return true;
+                    }
+                    return false;
+                }
+            });
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     //TODO: Add scroll method for ios
-    public static MobileElement scroll(String attribute, String value) {
-        if (DriverConfig.getDriver() instanceof AndroidDriver)
-            return androidScroll(attribute, value);
+    public static MobileElement scroll(MobileElement element, String direction) {
+        if (DriverConfig.getDriver() instanceof AndroidDriver) {
+            try {
+                return androidScroll(element, direction);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
         return null;
+    }
+
+    public static MobileElement scroll(String attribute, String value) {
+        if (DriverConfig.getDriver() instanceof AndroidDriver) {
+            try {
+                return androidScroll(attribute, value);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return null;
+    }
+
+    public static void dropModal(MobileElement modalContainer, MobileElement startPoint) {
+        int anchor = startPoint.getLocation().getX() + (startPoint.getSize().getWidth() / 2);
+        int start = startPoint.getLocation().getY() + (startPoint.getSize().getHeight() / 2);
+        int end = startPoint.getLocation().getY() + (startPoint.getSize().getHeight() / 2) + modalContainer.getSize().height - 100;
+        new TouchAction(DriverConfig.getDriver())
+                .press(point(anchor, start))
+                .waitAction(waitOptions(ofMillis(1000)))
+                .moveTo(point(anchor, end))
+                .release().perform();
     }
 
     public static void gestureBack() {
@@ -91,6 +173,19 @@ public class ActionUtils {
     public static MobileElement elementWithMatchingText(List<MobileElement> elementsList, String text) {
         for (MobileElement i : elementsList) {
             if (i.getText().equalsIgnoreCase(text))
+                return i;
+        }
+        return null;
+    }
+
+    public static MobileElement elementWithMatchingText(String text) {
+        return  (MobileElement) DriverConfig.getDriver().findElement(MobileBy.xpath("//android.widget.TextView" +
+                "[contains(text(),‘" + text + "’)]"));
+    }
+
+    public static MobileElement elementWithPartialMatchingText(List<MobileElement> elementsList, String text) {
+        for (MobileElement i : elementsList) {
+            if (i.getText().contains(text))
                 return i;
         }
         return null;
@@ -141,6 +236,13 @@ public class ActionUtils {
                 touchAction.press(point(startX,startY))
                         .moveTo(point(endX,  endY))
                         .release();
+    }
+
+    public static void swipe(int startX, int startY, int endX, int endY, int millis)
+            throws InterruptedException {
+        TouchAction t = new TouchAction(DriverConfig.getDriver());
+        t.press(point(startX, startY)).waitAction(waitOptions(ofMillis(millis))).moveTo(point(endX, endY)).release()
+                .perform();
     }
 
 }
