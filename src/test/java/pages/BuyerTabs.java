@@ -7,10 +7,8 @@ import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import lombok.Getter;
 import org.openqa.selenium.support.PageFactory;
 
-import java.util.Objects;
-
 @Getter
-public class Tabs {
+public class BuyerTabs {
 
     @AndroidFindBy(accessibility = "home_profileButton")
     private MobileElement profileTab;
@@ -27,7 +25,7 @@ public class Tabs {
     @AndroidFindBy(accessibility = "home_searchButton")
     private MobileElement search;
 
-     public Tabs() {
+     public BuyerTabs() {
         PageFactory.initElements(new AppiumFieldDecorator(DriverConfig.getDriver()), this);
     }
 

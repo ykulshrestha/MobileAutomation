@@ -29,14 +29,26 @@ public class DetailsPage {
 
     @AndroidFindBy(xpath = "//android.widget.TextView[@text='Ask Location Information']")
     private MobileElement askForLocation;
-    private LoginModal loginModal;
+
+    //TODO: use list once accessibility id is added
+    @AndroidFindBy(xpath = "((/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/" +
+            "android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/" +
+            "android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup)[2]/" +
+            "android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/" +
+            "android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/" +
+            "android.view.ViewGroup/android.view.ViewGroup)[3]")
+    private MobileElement chatFloatingCta;
+
+    //TODO: use list once accessibility id is added
+    @AndroidFindBy(xpath = "//android.view.ViewGroup[@bounds='[135,2031][473,2121]']")
+    private MobileElement housingChatInBottomTray;
+
 
     public void handleChatCoachmark(){
         ActionUtils.clickButton(ActionUtils.elementWithMatchingText("Later"));
     }
 
     public DetailsPage() {
-        loginModal = new LoginModal();
         PageFactory.initElements(new AppiumFieldDecorator(DriverConfig.getDriver()), this);
     }
 

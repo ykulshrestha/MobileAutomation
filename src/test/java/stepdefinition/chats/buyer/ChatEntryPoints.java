@@ -1,6 +1,7 @@
 package stepdefinition.chats.buyer;
 
 import enums.BhkEnum;
+import enums.MyActivityEnums;
 import enums.SaleTypeEnum;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -10,6 +11,7 @@ import io.cucumber.java.en_old.Ac;
 import modals.CrfFormModal;
 import modals.LoginModal;
 import org.testng.Assert;
+import pages.BuyerTabs;
 import pages.ChatThreadPage;
 import pages.buyerAppPages.*;
 import util.ActionUtils;
@@ -27,6 +29,11 @@ public class ChatEntryPoints {
     LoginModal loginModal = new LoginModal();
 
     CrfFormModal crfFormModal = new CrfFormModal();
+
+    ProfilePage profilePage = new ProfilePage();
+
+    BuyerTabs buyerTabs = new BuyerTabs();
+
 
     private String propertyName;
     private String sellerName;
@@ -75,39 +82,26 @@ public class ChatEntryPoints {
         Assert.assertEquals(chatThreadPage.getPropertyName().getText(), propertyName);
     }
 
-    @Given("Buyer is on detail Page")
-    public void buyerIsOnDetailPage() {
-    }
-
-
-    @Given("Logged in Buyer is on detail Page")
-    public void loggedInBuyerIsOnDetailPage() {
-    }
 
     @When("Buyer click on Chat for details")
     public void buyerClickOnChatForDetails() {
+        ActionUtils.scroll(detailsPage.getChatForDetails(), "up");
+        ActionUtils.clickButton(detailsPage.getChatForDetails());
     }
 
-    @When("Buyer click on chat from bottom floating cta")
-    public void buyerClickOnChatFromBottomFloatingCta() {
-    }
 
     @And("Buyer clicks on housing chat from bottom tray")
     public void buyerClicksOnHousingChatFromBottomTray() {
+        ActionUtils.clickButton(detailsPage.getChatFloatingCta());
+        ActionUtils.clickButton(detailsPage.getHousingChatInBottomTray());
     }
 
-    @Given("Logged in Buyer is on Profile Page")
-    public void loggedInBuyerIsOnProfilePage() {
-    }
-
-    @When("Buyer click on chat on fav cards")
-    public void buyerClickOnChatOnFavCards() {
-    }
 
     @Then("Buyer sends message to seller")
-    public void Buyer_sends_message_to_seller() {
+    public void Buyer_sends_message_to_seller() throws InterruptedException {
         ActionUtils.clickButton(chatThreadPage.getPills().get(0));
         ActionUtils.clickButton(chatThreadPage.getSendButton());
+        Thread.sleep(1000);
         Assert.assertEquals(chatThreadPage.getMessages(1).getText(), chatThreadPage.getPillText(0).getText());
     }
 
@@ -122,5 +116,56 @@ public class ChatEntryPoints {
     public void buyerLoginUsingCrfFormWithAnd(String Number, String Name, String email) {
         ActionUtils.dropModal(loginModal.getLoginContainer(), loginModal.getDraggingPoint());
         crfFormModal.fillCrfForm(Name, Number, email);
+    }
+
+
+
+    @Given("User logged in with {string} and {string} onboarded for {string}")
+    public void userLoggedInWithAndOnboardedFor(String number, String password, String city) {
+        appUtil.buyerOnboarding(city);
+        ActionUtils.clickButton(buyerTabs.getProfileTab());
+        ActionUtils.clickButton(profilePage.getLoginButton());
+        loginModal.loginWithPassword(number, password);
+        ActionUtils.clickButton(buyerTabs.getSearch());
+    }
+
+    @And("Logged in Buyer is on detail Page of {string}")
+    public void loggedInBuyerIsOnDetailPageOf(String locality) {
+        ActionUtils.clickButton(homePage.getBuy());
+        ActionUtils.sendText(searchLocalityPage.getSearchTextBox(), locality);
+        ActionUtils.clickButton(ActionUtils.elementWithMatchingText(searchLocalityPage.getSearchedProjectList(),locality));
+        ActionUtils.clickButton(searchLocalityPage.getSearchButton());
+        filterPage.setBhk(BhkEnum.ONERK.value());
+        ActionUtils.clickButton(filterPage.getViewProperties());
+        ActionUtils.clickButton(serpPage.getPropertyCards().get(1));
+    }
+
+
+    @And("Buyer navigates back to profile page and click on chat of {string}")
+    public void buyerNavigatesBackToProfilePageAndClickOnChatOf(String arg0) {
+        ActionUtils.gestureBack();
+        ActionUtils.clickButton(serpPage.getProfileFloatingCta());
+        switch (arg0){
+            case "saved": {
+                ActionUtils.clickButton(profilePage.getMyActivityTab().get(MyActivityEnums.SAVED_PROPERTIES.value()));
+                break;
+            }
+            case "seen":
+            {
+                ActionUtils.clickButton(profilePage.getMyActivityTab().get(MyActivityEnums.SEEN_PROPERTIES.value()));
+                break;
+            }
+            case "contacted":
+            {
+                ActionUtils.clickButton(profilePage.getMyActivityTab().get(MyActivityEnums.CONTACTED_PROPERTIES.value()));
+                break;
+            }
+            case "searched":
+            {
+                ActionUtils.clickButton(profilePage.getMyActivityTab().get(MyActivityEnums.SEARCHED_PROPERTIES.value()));
+                break;
+            }
+        }
+        ActionUtils.clickButton(profilePage.getChatCta(0));
     }
 }

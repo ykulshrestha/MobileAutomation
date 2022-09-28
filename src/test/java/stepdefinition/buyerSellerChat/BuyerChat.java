@@ -15,28 +15,28 @@ import utils.AppUtil;
 
 public class BuyerChat {
 
-    @Given("Logged in user is on Detail Page")
-    public void logged_in_user_is_on_detail_page() {
-        AppUtil appUtil = new AppUtil();
-        HomePage homePage = new HomePage();
-        SearchLocalityPage searchLocalityPage = new SearchLocalityPage();
-        ProfilePage profilePage = new ProfilePage();
-        FilterPage filterPage = new FilterPage();
-        SerpPage serpPage = new SerpPage();
-        LoginModal loginModal = new LoginModal();
-        appUtil.buyerOnboarding("Ajmer");
-        ActionUtils.clickButton(homePage.getTabs().getProfileTab());
-        ActionUtils.clickButton(profilePage.getLoginButton());
-        loginModal.loginWithPassword("7317193042", "12345");
-        ActionUtils.clickButton(profilePage.getTabs().getSearch());
-        ActionUtils.clickButton(homePage.getBuy());
-        ActionUtils.sendText(searchLocalityPage.getSearchTextBox(), "Makadwali");
-        ActionUtils.clickButton(ActionUtils.elementWithMatchingText(searchLocalityPage.getSearchedProjectList(),"Makadwali"));
-        ActionUtils.clickButton(searchLocalityPage.getSearchButton());
-        filterPage.setBhk(BhkEnum.ONERK.value());
-        ActionUtils.clickButton(filterPage.getViewProperties());
-        ActionUtils.clickButton(serpPage.getPropertyCards().get(1));
-    }
+//    @Given("Logged in user is on Detail Page")
+//    public void logged_in_user_is_on_detail_page() {
+//        AppUtil appUtil = new AppUtil();
+//        HomePage homePage = new HomePage();
+//        SearchLocalityPage searchLocalityPage = new SearchLocalityPage();
+//        ProfilePage profilePage = new ProfilePage();
+//        FilterPage filterPage = new FilterPage();
+//        SerpPage serpPage = new SerpPage();
+//        LoginModal loginModal = new LoginModal();
+//        appUtil.buyerOnboarding("Ajmer");
+//        ActionUtils.clickButton(homePage.getTabs().getProfileTab());
+//        ActionUtils.clickButton(profilePage.getLoginButton());
+//        loginModal.loginWithPassword("7317193042", "12345");
+//        ActionUtils.clickButton(profilePage.getTabs().getSearch());
+//        ActionUtils.clickButton(homePage.getBuy());
+//        ActionUtils.sendText(searchLocalityPage.getSearchTextBox(), "Makadwali");
+//        ActionUtils.clickButton(ActionUtils.elementWithMatchingText(searchLocalityPage.getSearchedProjectList(),"Makadwali"));
+//        ActionUtils.clickButton(searchLocalityPage.getSearchButton());
+//        filterPage.setBhk(BhkEnum.ONERK.value());
+//        ActionUtils.clickButton(filterPage.getViewProperties());
+//        ActionUtils.clickButton(serpPage.getPropertyCards().get(1));
+//    }
 
 //    @When("Buyer click on Chat Now")
 //    public void Buyer_click_on_Chat_Now() {

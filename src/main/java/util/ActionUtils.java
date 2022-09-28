@@ -33,7 +33,7 @@ public class ActionUtils {
 
     //This function is used to add wait condition for any element
     public static void waitForVisibilityOf(MobileElement element) {
-        WebDriverWait wait = new WebDriverWait(DriverConfig.getDriver(), 1000);
+        WebDriverWait wait = new WebDriverWait(DriverConfig.getDriver(), 10000);
         try {
             wait.until(ExpectedConditions.visibilityOf(element));
         } catch (Exception e) {

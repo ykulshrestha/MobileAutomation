@@ -26,21 +26,38 @@ Feature: Verify Buyer Side Chat Entry Points
       |Number|Name|email|city|locality|
       |9871739261|Test|Test@gmail.com|Ajmer|Makadwali|
 
-  Scenario: Logged in user successfully intiated chat from Chat for details CTA
-    Given Logged in Buyer is on detail Page
+  @Test3
+  Scenario Outline: Logged in user successfully intiated chat from Chat for details CTA
+    Given User logged in with "<number>" and "<password>" onboarded for "<city>"
+    And Logged in Buyer is on detail Page of "<locality>"
     When Buyer click on Chat for details
     Then Chat screen is visible to Buyer
     And Buyer sends message to seller
 
-  Scenario: Logged in user successfully intiated chat from Chat bottom floating cta
-    Given Logged in Buyer is on detail Page
-    When Buyer click on chat from bottom floating cta
-    And Buyer clicks on housing chat from bottom tray
+    Examples:
+      |number|password|city|locality|
+      |9643930232|12345|Ajmer|Makadwali|
+
+  @Test4
+  Scenario Outline: Logged in user successfully intiated chat from Chat bottom floating cta
+    Given User logged in with "<number>" and "<password>" onboarded for "<city>"
+    And Logged in Buyer is on detail Page of "<locality>"
+    When Buyer clicks on housing chat from bottom tray
     Then Chat screen is visible to Buyer
     And Buyer sends message to seller
 
-  Scenario: Logged in user successfully intiated chat from profile page
-    Given Logged in Buyer is on Profile Page
-    When Buyer click on chat on fav cards
+    Examples:
+      |number|password|city|locality|
+      |9643930232|12345|Ajmer|Makadwali|
+
+  @Test5
+  Scenario Outline: Logged in user successfully intiated chat from profile page
+    Given User logged in with "<number>" and "<password>" onboarded for "<city>"
+    And Logged in Buyer is on detail Page of "<locality>"
+    When Buyer navigates back to profile page and click on chat of "<profile Section>"
     Then Chat screen is visible to Buyer
     And Buyer sends message to seller
+
+    Examples:
+      |number|password|city|locality|profile Section|
+      |9643930232|12345|Ajmer|Makadwali|seen        |
