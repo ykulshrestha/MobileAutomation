@@ -1,6 +1,7 @@
 package pages.buyerAppPages;
 
 import configs.DriverConfig;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
@@ -15,7 +16,7 @@ public class DetailsPage {
     @AndroidFindBy(accessibility = "project_detail_chat_now")
     private MobileElement chatNow;
 
-    @AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup[5]/android.view.ViewGroup")
+    @AndroidFindBy(xpath = "//android.widget.TextView[@text='Chat for Details']")
     private MobileElement chatForDetails;
 
     @AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc=\"_chatButton\"]/android.view.ViewGroup/android.widget.ImageView")

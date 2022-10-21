@@ -1,13 +1,12 @@
-package stepdefinition.chats.buyer;
+package stepdefinition.chats.ChatEntryPointsOnBuyer;
 
 import enums.BhkEnum;
 import enums.MyActivityEnums;
-import enums.SaleTypeEnum;
+import io.appium.java_client.MobileBy;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.cucumber.java.en_old.Ac;
 import modals.CrfFormModal;
 import modals.LoginModal;
 import org.testng.Assert;
@@ -16,7 +15,6 @@ import pages.ChatThreadPage;
 import pages.buyerAppPages.*;
 import util.ActionUtils;
 import utils.AppUtil;
-import verification.Verification;
 
 public class ChatEntryPoints {
     AppUtil appUtil = new AppUtil();
@@ -67,14 +65,14 @@ public class ChatEntryPoints {
 
     @Then("Chat screen is visible to Buyer")
     public void chatScreenIsVisibleToBuyer() {
-        ActionUtils.waitForVisibilityOf(chatThreadPage.getSellerName());
+        ActionUtils.waitForVisibilityOf(chatThreadPage.getRecieverName());
         ActionUtils.waitForVisibilityOf(chatThreadPage.getPropertyName());
         ActionUtils.waitForVisibilityOf(chatThreadPage.getMessageTextBox());
     }
 
     @And("sellerName should be visible on chat inbox")
     public void sellerNameShouldBeVisibleOnChatInbox() {
-        Assert.assertEquals(chatThreadPage.getSellerName().getText(), sellerName);
+        Assert.assertEquals(chatThreadPage.getRecieverName().getText(), sellerName);
     }
 
     @And("Property Name should be visible")
@@ -131,13 +129,7 @@ public class ChatEntryPoints {
 
     @And("Logged in Buyer is on detail Page of {string}")
     public void loggedInBuyerIsOnDetailPageOf(String locality) {
-        ActionUtils.clickButton(homePage.getBuy());
-        ActionUtils.sendText(searchLocalityPage.getSearchTextBox(), locality);
-        ActionUtils.clickButton(ActionUtils.elementWithMatchingText(searchLocalityPage.getSearchedProjectList(),locality));
-        ActionUtils.clickButton(searchLocalityPage.getSearchButton());
-        filterPage.setBhk(BhkEnum.ONERK.value());
-        ActionUtils.clickButton(filterPage.getViewProperties());
-        ActionUtils.clickButton(serpPage.getPropertyCards().get(1));
+
     }
 
 
@@ -168,4 +160,78 @@ public class ChatEntryPoints {
         }
         ActionUtils.clickButton(profilePage.getChatCta(0));
     }
+
+
+    @And("Buyer is on detail Page of {string} service of {string}")
+    public void buyerIsOnDetailPageOfServiceOf(String service, String locality) {
+        switch(service){
+            case "buy": {
+                ActionUtils.clickButton(homePage.getBuy());
+                break;
+            }
+            case "rent": {
+                ActionUtils.clickButton(homePage.getRent());
+                break;
+            }
+        }
+        ActionUtils.sendText(searchLocalityPage.getSearchTextBox(), locality);
+        ActionUtils.clickButton(ActionUtils.elementWithMatchingText(searchLocalityPage.getSearchedProjectList(), locality));
+        ActionUtils.clickButton(searchLocalityPage.getSearchButton());
+        filterPage.setBhk(BhkEnum.ONERK.value());
+        ActionUtils.clickButton(filterPage.getViewProperties());
+        ActionUtils.clickButton(serpPage.getPropertyCards().get(1));
+    }
+
+    @Given("Buyer completed onboarding for {string}")
+    public void  buyerCompletedOnboardingFor(String city) {
+        appUtil.buyerOnboarding(city);
+    }
+
+    @Then("Chat entry points should be visible")
+    public void chatEntryPointsShouldBeVisible() {
+        Assert.assertTrue(ActionUtils.isElementDisplayed(detailsPage.getChatNow()));
+        Assert.assertTrue(ActionUtils.isElementDisplayed(ActionUtils.scroll(detailsPage.getChatForDetails(), "up")));
+        Assert.assertTrue(ActionUtils.isElementDisplayed(detailsPage.getChatHeaderIcon()));
+        Assert.assertTrue(ActionUtils.isElementDisplayed(detailsPage.getChatFloatingCta()));
+    }
+
+    @And("Buyer is on detail Page of {string}")
+    public void buyerIsOnDetailPageOf(String project) {
+        ActionUtils.clickButton(homePage.getBuy());
+        ActionUtils.sendText(searchLocalityPage.getSearchTextBox(), project);
+        ActionUtils.clickButton(ActionUtils.elementWithPartialMatchingText(searchLocalityPage.getSearchedProjectList(), project));
+    }
+
+
+    @And("Buyer is on detail Page of other {string} service of {string}")
+    public void buyerIsOnDetailPageOfOtherServiceOf(String service, String locality) throws InterruptedException {
+        switch(service){
+            case "commercial": {
+                ActionUtils.scrollUsingElement(homePage.getBuy(), homePage.getCommercial(), "right");
+                ActionUtils.clickButton(homePage.getCommercial());
+                break;
+            }
+            case "pg": {
+                ActionUtils.scrollUsingElement(homePage.getBuy(), homePage.getPg_co_living(), "right");
+                ActionUtils.clickButton(homePage.getPg_co_living());
+                break;
+            }
+        }
+        ActionUtils.sendText(searchLocalityPage.getSearchTextBox(), locality);
+        ActionUtils.clickButton(ActionUtils.elementWithMatchingText(searchLocalityPage.getSearchedProjectList(), locality));
+        if (service.equalsIgnoreCase("commercial"))
+            ActionUtils.clickButton(searchLocalityPage.getSearchButton());
+        if (service.equalsIgnoreCase("pg"))
+            ActionUtils.clickButton(filterPage.getViewProperties());
+        ActionUtils.clickButton(serpPage.getPropertyCards().get(1));
+        }
+
+    @Then("Chat entry points should not be visible")
+    public void chatEntryPointsShouldNotBeVisible() {
+        Assert.assertFalse(ActionUtils.isElementDisplayed(detailsPage.getChatNow()));
+        Assert.assertFalse(ActionUtils.isElementDisplayed(ActionUtils.scroll(detailsPage.getChatForDetails(), "up")));
+        Assert.assertFalse(ActionUtils.isElementDisplayed(detailsPage.getChatHeaderIcon()));
+        Assert.assertFalse(ActionUtils.isElementDisplayed(detailsPage.getChatFloatingCta()));
+    }
 }
+

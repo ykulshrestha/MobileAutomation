@@ -33,7 +33,7 @@ public class ActionUtils {
 
     //This function is used to add wait condition for any element
     public static void waitForVisibilityOf(MobileElement element) {
-        WebDriverWait wait = new WebDriverWait(DriverConfig.getDriver(), 10000);
+        WebDriverWait wait = new WebDriverWait(DriverConfig.getDriver(), 30);
         try {
             wait.until(ExpectedConditions.visibilityOf(element));
         } catch (Exception e) {
@@ -81,7 +81,7 @@ public class ActionUtils {
                         + "new UiSelector()." + attribute + "(\"" + value + "\"));");
     }
 
-    public static MobileElement androidScroll(MobileElement element, String direction) throws Exception {
+    private static MobileElement androidScroll(MobileElement element, String direction) throws Exception {
         Dimension size = DriverConfig.getDriver().manage().window().getSize();
         int startX = (int) (size.width * 0.5);
         int endX = (int) (size.width * 0.5);
@@ -99,6 +99,21 @@ public class ActionUtils {
                 endY = (int) (size.height * 0.6);
                 startY = (int) (size.height * 0.4);
                 break;
+
+            case "left":
+                startY = (int) (size.height * 0.5);
+                endY = (int) (size.height * 0.5);
+                startX = (int) (size.width * 0.4);
+                endX = (int) (size.width * 0.6);
+                break;
+
+            case "right":
+                startY = (int) (size.height * 0.5);
+                endY = (int) (size.height * 0.5);
+                startX = (int) (size.width * 0.6);
+                endX = (int) (size.width * 0.4);
+                break;
+
         }
 
         for (int i = 0; i < 20; i++) {
@@ -110,12 +125,49 @@ public class ActionUtils {
             }
         }
         if(!isFound){
-            throw new Exception("Element not found");
+            return null;
         }
         return element;
     }
 
-    public static boolean find(final MobileElement element, int timeout) {
+
+    private static MobileElement androidScrollUsingElement(MobileElement startElement, MobileElement endElement, String direction) throws Exception {
+
+        Dimension startElementSize = startElement.getSize();
+        Dimension screenSize = DriverConfig.getDriver().manage().window().getSize();
+        int startX = 0;
+        int endX = 0;
+        int startY = (int) ((startElementSize.height * 0.5) + startElement.getLocation().getY());
+        int endY = (int) ((startElementSize.height * 0.5) + startElement.getLocation().getY());
+        boolean isFound = false;
+
+        switch (direction) {
+            case "left":
+                startX = (int) (screenSize.width * 0.2);
+                endX = (int) (screenSize.width * 0.8);
+                break;
+
+            case "right":
+                startX = (int) (screenSize.width * 0.8);
+                endX = (int) (screenSize.width * 0.2);
+                break;
+        }
+        for (int i = 0; i < 20; i++) {
+
+            if (find(endElement, 1)) {
+                return endElement;
+            } else {
+            swipe(startX, startY, endX, endY, 1000);
+            }
+        }
+        if(!isFound){
+            throw new Exception("Element not found");
+        }
+        return endElement;
+    }
+
+
+    private static boolean find(final MobileElement element, int timeout) {
         try {
             WebDriverWait wait = new WebDriverWait(DriverConfig.getDriver(), timeout);
             return wait.until(new ExpectedCondition<Boolean>() {
@@ -137,6 +189,18 @@ public class ActionUtils {
         if (DriverConfig.getDriver() instanceof AndroidDriver) {
             try {
                 return androidScroll(element, direction);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return null;
+    }
+
+    //TODO: Add scroll method for ios
+    public static MobileElement scrollUsingElement(MobileElement startElement, MobileElement endElement, String direction) {
+        if (DriverConfig.getDriver() instanceof AndroidDriver) {
+            try {
+                return androidScrollUsingElement(startElement, endElement, direction);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -185,7 +249,7 @@ public class ActionUtils {
 
     public static MobileElement elementWithPartialMatchingText(List<MobileElement> elementsList, String text) {
         for (MobileElement i : elementsList) {
-            if (i.getText().contains(text))
+            if (i.getText().toLowerCase().contains(text.toLowerCase()))
                 return i;
         }
         return null;
@@ -238,11 +302,22 @@ public class ActionUtils {
                         .release();
     }
 
-    public static void swipe(int startX, int startY, int endX, int endY, int millis)
+    private static void swipe(int startX, int startY, int endX, int endY, int millis)
             throws InterruptedException {
         TouchAction t = new TouchAction(DriverConfig.getDriver());
         t.press(point(startX, startY)).waitAction(waitOptions(ofMillis(millis))).moveTo(point(endX, endY)).release()
                 .perform();
+    }
+
+
+    public static boolean isElementDisplayed(MobileElement element){
+        try{
+            waitForVisibilityOf(element);
+            return element.isDisplayed();
+        }catch(Exception e){
+            //System.out.println(e);
+            return false;
+        }
     }
 
 }
