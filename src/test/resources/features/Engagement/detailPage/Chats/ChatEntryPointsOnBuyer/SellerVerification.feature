@@ -14,5 +14,3 @@ Feature: Seller is able to recieve messages
       |6111111111|housing@1234|Testnewuser|
       |6111111111|housing@1234|Testnewuser|
       |6111111111|housing@1234|Testnewuser|
-
-

@@ -54,6 +54,3 @@ Feature: Validate existance of chat discovery points on various details page
       #|Noida|commercial|Sector 75|
       |Noida|pg|Sector 75|
   # commercial click is not working on first attempt
-
-
-
