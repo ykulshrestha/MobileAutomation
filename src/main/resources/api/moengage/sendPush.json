@@ -1,0 +1,51 @@
+{
+  "appId": "8O6K2BUCIK6GD80MYJK3Y81S_DEBUG",
+  "campaignName": "Test",
+  "signature": "77bb7c6746b5c4af5296058e8aac47fa72bb4f0acde30ba3555dbd47ccce064e",
+  "requestType": "push",
+  "targetPlatform": [
+    "ANDROID"
+  ],
+  "targetAudience": "User",
+  "targetUserAttributes":
+  {
+    "attribute": "USER_ATTRIBUTE_USER_MOBILE",
+    "comparisonParameter": "is",
+    "attributeValue": "7838246862"
+  },
+  "payload": {
+    "ANDROID": {
+      "message": "Test",
+      "title": "Test",
+      "richContent": [
+        {
+          "type": "image",
+          "value": "http://images.iimg.in/c"
+        },
+        {
+          "type": "coupon",
+          "value": "free"
+        }
+      ],
+      "defaultAction": {
+        "type": "deeplinking",
+        "value": "housing://app.housing.com/moengage",
+        "kvPairs" :{
+          "category" : "CHAT_INBOX"
+        }
+      },
+      "campaignDelivery": {
+        "type": "soon"
+      },
+
+      "advancedSettings": {
+        "ttl": {
+          "ANDROID": 12
+        },
+        "ignoreFC": "true",
+        "ignoreAndCountFC": "true",
+        "sendAtHighPriority": "true"
+      }
+    }
+  }
+}
