@@ -8,6 +8,12 @@ import org.awaitility.Duration;
 import org.awaitility.core.ConditionTimeoutException;
 import org.awaitility.core.Predicate;
 
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.concurrent.Callable;
 
 import static org.awaitility.Awaitility.with;
@@ -38,44 +44,15 @@ public class ApiExecutor implements IApi {
 
     }
 
-    /**
-     * Filter is commented in this Executor method.
-     * @param request
-     * @param temp
-     */
-    public ApiExecutor(IApiRequest request, String temp){
-        Object reqBody = null;
-        if (request.requestBody() == null) {
-            reqBody = request.build();
-        } else
-            reqBody = request.requestBody();
-
-        ApiBuilder api = new ApiBuilder();
-        api.setMethod(request.apiMethod());
-        api.getRequestSpecBuilder().setContentType(request.contentType());
-        api.getRequestSpecBuilder().setBaseUri(request.baseUrl());
-        api.getRequestSpecBuilder().setBasePath(request.basePath());
-        api.getRequestSpecBuilder().addHeaders(request.headers());
-        if (reqBody != null)
-            api.getRequestSpecBuilder().setBody(reqBody);
-//        api.getRequestSpecBuilder().addFilters(Arrays.asList(new ApiLoggingFilter()));
-        api.getRequestSpecBuilder().addQueryParams(request.queryParam());
-        this.baseApi = api;
-    }
 
     @Override
     public ApiResponse execute() {
+
         this.response = this.baseApi.execute();
+        LOGGER.info(this.response.body().prettyPrint());
         return new ApiResponse(this.response);
     }
 
-    /**
-     * @param maxDuration       max time till which api re-executed
-     * @param pollInterval      duration in which next api executed
-     * @param pollDelay         delay duration for which next poll waits
-     * @param responsePredicate
-     * @return
-     */
     public ApiResponse execute_waitAndPoll(Duration maxDuration, Duration pollInterval, Duration pollDelay, Predicate<ApiResponse> responsePredicate) {
 
         try {
@@ -109,20 +86,9 @@ public class ApiExecutor implements IApi {
         };
     }
 
-    /**
-     * @param responsePredicate
-     * @return
-     */
     public ApiResponse execute_waitAndPoll(Predicate<ApiResponse> responsePredicate) {
         return execute_waitAndPoll(Duration.TWO_MINUTES, Duration.TWO_SECONDS, Duration.ONE_SECOND, responsePredicate);
     }
-
-/*    public ApiResponse execute_withSleep(Duration sleepDuration)
-    {
-        return )
-    }*/
-
-
 
 
     public Response getResponse() {

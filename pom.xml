@@ -153,13 +153,13 @@
             <build>
                 <resources>
                     <resource>
+                        <directory>src/main/resources</directory>
+                    </resource>
+                    <resource>
                         <directory>src/main/resources/profile/android</directory>
                     </resource>
                     <resource>
                         <directory>src/main/resources/appium</directory>
-                    </resource>
-                    <resource>
-                        <directory>src/main/resources</directory>
                     </resource>
                 </resources>
             </build>

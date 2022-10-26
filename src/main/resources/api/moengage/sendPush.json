@@ -1,7 +1,7 @@
 {
   "appId": "8O6K2BUCIK6GD80MYJK3Y81S_DEBUG",
-  "campaignName": "Test",
-  "signature": "77bb7c6746b5c4af5296058e8aac47fa72bb4f0acde30ba3555dbd47ccce064e",
+  "campaignName": "Test25",
+  "signature": "abv",
   "requestType": "push",
   "targetPlatform": [
     "ANDROID"
@@ -11,7 +11,7 @@
   {
     "attribute": "USER_ATTRIBUTE_USER_MOBILE",
     "comparisonParameter": "is",
-    "attributeValue": "7838246862"
+    "attributeValue": "7210001236"
   },
   "payload": {
     "ANDROID": {

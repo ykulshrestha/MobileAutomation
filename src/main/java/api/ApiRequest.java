@@ -8,20 +8,25 @@ import net.minidev.json.JSONObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 public abstract class ApiRequest<T> implements IApiRequest<T> {
 
     private static final Logger LOGGER = LogManager.getLogger(ApiBuilder.class);
-    private final String REQUEST_TEMPLATE_PATH_PREFIX = "api";
+    private final String REQUEST_TEMPLATE_PATH_PREFIX = "src/main/resources/api/";
     protected Map<String, Object> header = new HashMap<>();
     private Map<String, String> queryParams = new HashMap<>();
     private LinkedHashMap<String, Object> context = new LinkedHashMap<>();
     private LinkedList<String> deleteContext = new LinkedList<>();
     protected String baseUrl = "";
-    private DocumentContext requestContext = null;
+    public DocumentContext requestContext = null;
     private boolean isRequestLoaded = false;
 
     public ApiRequest() {
@@ -89,12 +94,6 @@ public abstract class ApiRequest<T> implements IApiRequest<T> {
                             requestContext.put("$", path[path.length - 1], v);
                         else
                             requestContext.put(trgtPath.toString(), path[path.length - 1], array);
-                    } else if (getClassName(v).contains("com.paytm") && !v.getClass().isEnum()) {
-                        JSONObject object = new ObjectMapper().convertValue(v, JSONObject.class);
-                        if (trgtPath.toString().equalsIgnoreCase("$."))
-                            requestContext.put("$", path[path.length - 1], v);
-                        else
-                            requestContext.put(trgtPath.toString(), path[path.length - 1], object);
                     } else if (trgtPath.toString().equalsIgnoreCase("$.")) {
                         requestContext.put("$", path[path.length - 1], v);
                     } else
@@ -133,7 +132,7 @@ public abstract class ApiRequest<T> implements IApiRequest<T> {
                     ClassLoader cl = getClass().getClassLoader();
                     URL resource = cl.getResource(requestPath);
                     try {
-                        requestContext = JsonPath.parse(resource);
+                        requestContext = JsonPath.parse(new File(requestPath));
                         isRequestLoaded = true;
                     } catch (IOException e) {
                         LOGGER.error("Error occurred while loading request: " + requestPath, e);
@@ -168,5 +167,21 @@ public abstract class ApiRequest<T> implements IApiRequest<T> {
     }
 
     protected abstract String requestTemplatePath();
+
+    protected String getSHA256(String input){
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance("SHA-256");
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+        BigInteger number = new BigInteger(md.digest(input.getBytes(StandardCharsets.UTF_8)));
+        StringBuilder hexString = new StringBuilder(number.toString(16));
+        while (hexString.length() < 64)
+        {
+            hexString.insert(0, '0');
+        }
+        return hexString.toString();
+    }
 }
 

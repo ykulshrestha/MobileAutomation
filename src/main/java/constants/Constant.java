@@ -7,4 +7,7 @@ public class Constant {
 
     public static final String PATH_TO_USER_PROPERTIES = "user-config.json";
 
+    public static final String PATH_TO_MOENGAGE_PROPERTIES = "moengage.properties";
+
+
 }
