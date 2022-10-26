@@ -6,4 +6,4 @@ target/
 .apk
 .ipa
 test-output/
-*.iml
+MobileAutomation.iml
