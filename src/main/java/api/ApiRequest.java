@@ -178,7 +178,7 @@ public abstract class ApiRequest<T> implements IApiRequest<T> {
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
-        BigInteger number = new BigInteger(md.digest(input.getBytes(StandardCharsets.UTF_8)));
+        BigInteger number = new BigInteger(1, md.digest(input.getBytes(StandardCharsets.UTF_8)));
         StringBuilder hexString = new StringBuilder(number.toString(16));
         while (hexString.length() < 64)
         {
