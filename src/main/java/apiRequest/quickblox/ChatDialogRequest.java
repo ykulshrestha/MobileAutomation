@@ -80,7 +80,6 @@ public class ChatDialogRequest extends ApiRequest {
                 .statusCode(HttpStatus.SC_OK)
                 .extract()
                 .jsonPath();
-
      }
 
 
