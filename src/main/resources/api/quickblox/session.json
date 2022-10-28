@@ -3,5 +3,8 @@
   "auth_key": "JUJKdXecYgz5OnL",
   "nonce": "2",
   "timestamp": "1666874997",
+  "user": {
+    "login": "Mike"
+  },
   "signature" : "e2a69fb413edc1f12dd3edfe0a80724c53f28b91"
 }
