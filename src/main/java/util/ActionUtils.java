@@ -143,4 +143,23 @@ public class ActionUtils {
                         .release();
     }
 
+    //TODO : ADD housing notification function for ios
+
+    public static void openHousingNotification(String title){
+        if (DriverConfig.getDriver() instanceof AndroidDriver)
+            openAndroidNotification(title);
+    }
+
+    private static void openAndroidNotification(String title){
+        AndroidDriver driver = (AndroidDriver) DriverConfig.getDriver();
+        driver.openNotifications();
+        List<MobileElement> notifications = driver.findElements(MobileBy.id("android:id/title"));
+        for (MobileElement list: notifications) {
+            String extractTitle = list.getText();
+            if (extractTitle.equalsIgnoreCase(title)) {
+                list.click();
+            }
+                }
+    }
+
 }
