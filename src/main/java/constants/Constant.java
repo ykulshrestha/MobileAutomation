@@ -9,5 +9,8 @@ public class Constant {
 
     public static final String PATH_TO_MOENGAGE_PROPERTIES = "moengage.properties";
 
+    public static final String PATH_TO_QUICKBLOX_PROPERTIES = "quickblox.properties";
+
+
 
 }
