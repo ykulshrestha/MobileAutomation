@@ -21,12 +21,20 @@ import java.util.Objects;
 @Getter
 public class ChatInboxPage {
 
-    @AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup")
+    @AndroidFindBy(xpath = "(/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup)[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup")
     private List<MobileElement> chatThreads;
 
     @AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup")
     private MobileElement back;
 
+    @AndroidFindBy(xpath = "//android.widget.TextView[@text='My Chats']")
+    private MobileElement myChatsText;
+
+    @AndroidFindBy(xpath = "//android.widget.TextView[@text='Archived Chats']")
+    private MobileElement archivedChats;
+
+    @AndroidFindBy(xpath = "//android.widget.TextView[@text='Explore More Properties']")
+    private MobileElement exploreMoreProperties;
 
     public MobileElement getUnreadCount(int index){
         String unreadCount = "(//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[@index='5'])";
@@ -57,12 +65,12 @@ public class ChatInboxPage {
     }
 
     public MobileElement getName(int index){
-        String name = "(//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[@index='2'])[1]";
+        String name = "(//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[@index='2'])";
         return chatThreads.get(index).findElement(MobileBy.xpath(name));
     }
 
     public MobileElement getPropertyDetails(int index){
-        String propertyDetails = "android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView";
+        String propertyDetails = "//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView[@index='1']";
         return chatThreads.get(index).findElement(MobileBy.xpath(propertyDetails));
     }
 
