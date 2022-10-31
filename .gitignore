@@ -7,3 +7,4 @@ target/
 .ipa
 test-output/
 MobileAutomation.iml
+.DS_Store
