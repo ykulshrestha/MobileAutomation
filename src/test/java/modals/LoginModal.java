@@ -13,9 +13,13 @@ import org.openqa.selenium.support.PageFactory;
 import util.ActionUtils;
 
 @Getter
-@AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]")
 public class LoginModal {
 
+    @AndroidFindBy(xpath = "(/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup)[2]")
+    private MobileElement loginContainer;
+
+    @AndroidFindBy(xpath = "((/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup)[2]/android.view.ViewGroup)[1]")
+    private MobileElement draggingPoint;
     ////////////////////////////////Phone Number//////////////////////////////////////////////////
     @AndroidFindBy(accessibility = "_input")
     private MobileElement enterPhone;

@@ -7,22 +7,34 @@ import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import lombok.Getter;
 import modals.LoginModal;
 import org.openqa.selenium.support.PageFactory;
-import pages.Tabs;
 
 @Getter
 public class HomePage {
-
-    private Tabs tabs;
-    private LoginModal loginModal;
 
 
     @AndroidFindBy(accessibility = "Buy")
     private MobileElement buy;
 
+    @AndroidFindBy(accessibility = "Rent")
+    private MobileElement rent;
+
+    @AndroidFindBy(accessibility = "Commercial")
+    private MobileElement commercial;
+
+    @AndroidFindBy(accessibility = "PG / Co-living")
+    private MobileElement pg_co_living;
+
+    @AndroidFindBy(accessibility = "Plots")
+    private MobileElement plots;
+
+
+    @AndroidFindBy(accessibility = "Login-Now-CTA")
+    private MobileElement loginNowButton;
+
+
 
     public HomePage() {
-        loginModal = new LoginModal();
-        tabs = new Tabs();
+
         PageFactory.initElements(new AppiumFieldDecorator(DriverConfig.getDriver()), this);
     }
 }
