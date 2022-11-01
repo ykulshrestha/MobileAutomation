@@ -3,6 +3,10 @@ package stepdefinition.notifications;
 import api.ApiExecutor;
 import api.ApiResponse;
 import apiRequest.moengage.SendPushRequest;
+import apiRequest.quickblox.ChatDialogRequest;
+import apiRequest.quickblox.SessionRequest;
+import apiResponse.chatDialogResponse.ChatDialogResponse;
+import enums.ChatUserEnums;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
@@ -20,7 +24,6 @@ public class moengageNotification {
 
     @And("Chat Inbox notification is sent on {string} and {string}")
     public void chatNotificationIsSent(String number, String title) throws InterruptedException {
-        Thread.sleep(3000);
         SendPushRequest sendPushRequest = new SendPushRequest();
         sendPushRequest.setKeyValue("category", "CHAT_INBOX");
         sendPushRequest.setUserAttribute(number);
@@ -36,12 +39,21 @@ public class moengageNotification {
 
     @When("User clicks on notification having {string}")
     public void userClicksOnNotification(String title) {
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         ActionUtils.openHousingNotification(title);
     }
-    @And("Chat Inbox should be visible")
-    public void chatInboxShouldBeVisible() {
+    @And("Chat Inbox of {string} for {string} role should be visible")
+    public void chatInboxShouldBeVisible(String name, String role) {
         ChatInboxPage chatInboxPage = new ChatInboxPage();
-        Assert.assertEquals(chatInboxPage.getName(1) ,"Mohammed Rabban Ansari");
+        ChatDialogRequest chatDialogRequest = new ChatDialogRequest();
+        SessionRequest.createSession(ChatUserEnums.valueOf(name).getValue());
+        ChatDialogResponse chatDialogResponse = chatDialogRequest.getChatDialogMessages();
+        chatInboxPage.verifyChatCardData(chatDialogResponse, role);
+
     }
 
 }

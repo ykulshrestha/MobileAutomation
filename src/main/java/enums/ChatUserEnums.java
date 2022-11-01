@@ -13,6 +13,10 @@ public enum ChatUserEnums {
         this.value = value;
     }
 
+    public String getValue() {
+        return value;
+    }
+
     public String value()
     {
         return value;

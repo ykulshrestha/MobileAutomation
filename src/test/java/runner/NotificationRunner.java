@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 @CucumberOptions(
         features = {"src/test/resources/features/Engagement/notification"}
         ,glue = {"base", "stepdefinition"}
-        ,tags= "@Test1"
+        ,tags= "@Test2"
         ,publish = true
         ,plugin = {"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"}
 )

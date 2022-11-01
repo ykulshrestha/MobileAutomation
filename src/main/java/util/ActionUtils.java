@@ -311,14 +311,19 @@ public class ActionUtils {
 
     private static void openAndroidNotification(String title) {
         AndroidDriver driver = (AndroidDriver) DriverConfig.getDriver();
+        boolean isNotificationFound = false;
         driver.openNotifications();
         List<MobileElement> notifications = driver.findElements(MobileBy.id("android:id/title"));
         for (MobileElement list : notifications) {
             String extractTitle = list.getText();
             if (extractTitle.equalsIgnoreCase(title)) {
                 list.click();
+                isNotificationFound = true;
+                break;
             }
         }
+        if (!isNotificationFound)
+            throw new RuntimeException("Desired Notification not found");
     }
 
     private static void swipe(int startX, int startY, int endX, int endY, int millis)
@@ -338,5 +343,14 @@ public class ActionUtils {
             return false;
         }
     }
+
+    public static void closeApp(){
+        DriverConfig.getDriver().terminateApp("com.locon.housing");
+    }
+
+    public static void openApp(){
+        DriverConfig.getDriver().launchApp();
+    }
+
 
 }

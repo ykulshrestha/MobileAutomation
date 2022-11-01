@@ -3,6 +3,8 @@ package apiRequest.quickblox;
 import api.ApiBuilder;
 import api.ApiExecutor;
 import api.ApiRequest;
+import apiResponse.chatDialogResponse.ChatDialogResponse;
+import com.google.gson.Gson;
 import configs.QuickbloxConfig;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
@@ -71,15 +73,19 @@ public class ChatDialogRequest extends ApiRequest {
         this.setQueryParam("data[isChatDisabled][ne]", "true");
     }
 
-     public JsonPath getChatDialogMessages(){
+     public ChatDialogResponse getChatDialogMessages(){
         addQbToken();
         addInboxQueryParams();
-        return new ApiExecutor(this)
-                .execute()
-                .validatableResponse()
+        Gson gson = new Gson();
+
+        String response = new ApiExecutor(this)
+                .execute().
+                validatableResponse()
                 .statusCode(HttpStatus.SC_OK)
                 .extract()
-                .jsonPath();
+                .asString();
+         return gson.fromJson(response
+                 , ChatDialogResponse.class);
      }
 
 
