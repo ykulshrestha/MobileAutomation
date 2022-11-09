@@ -10,10 +10,7 @@ import io.cucumber.java.en_old.Ac;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import io.appium.java_client.MobileElement;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -33,7 +30,7 @@ public class ActionUtils {
 
     //This function is used to add wait condition for any element
     public static void waitForVisibilityOf(MobileElement element) {
-        WebDriverWait wait = new WebDriverWait(DriverConfig.getDriver(), 30);
+        WebDriverWait wait = new WebDriverWait(DriverConfig.getDriver(), 120);
         try {
             wait.until(ExpectedConditions.visibilityOf(element));
         } catch (Exception e) {
@@ -306,7 +303,7 @@ public class ActionUtils {
 
     public static void openHousingNotification(String title){
         if (DriverConfig.getDriver() instanceof AndroidDriver)
-            openAndroidNotification(title);
+            openAndroidNotification1(title);
     }
 
     private static void openAndroidNotification(String title) {
@@ -322,6 +319,67 @@ public class ActionUtils {
                 break;
             }
         }
+        if (!isNotificationFound)
+            throw new RuntimeException("Desired Notification not found");
+    }
+
+    public static MobileElement retryFindElement( By by) {
+        int attempts = 0;
+        while(attempts < 10) {
+            try {
+                DriverConfig.getDriver().findElement(by);
+                break;
+            } catch(StaleElementReferenceException e) {
+            }
+            attempts++;
+        }
+        return (MobileElement) DriverConfig.getDriver().findElement(by);
+    }
+
+    public static List<MobileElement> retryFindElements(By by) {
+        int attempts = 0;
+        while(attempts < 3) {
+            try {
+                DriverConfig.getDriver().findElements(by);
+                break;
+            } catch(StaleElementReferenceException e) {
+            }
+            attempts++;
+        }
+        return DriverConfig.getDriver().findElements(by);
+    }
+
+    private static void openAndroidNotification1(String title) {
+        AndroidDriver driver =
+                (AndroidDriver) DriverConfig.getDriver();
+        boolean isNotificationFound = false;
+        driver.openNotifications();
+        List<MobileElement> notifications ;
+
+        int i=0;
+        while (isNotificationFound!=true) {
+
+            notifications = retryFindElements(MobileBy.id("android:id/title"));
+            if (notifications.size() != 0) {
+                if (notifications.get(i).getText().equalsIgnoreCase(title)) {
+                    notifications.get(i).click();
+                    isNotificationFound = true;
+                    break;
+                }
+                else
+                    i++;
+            }
+
+            if (i == notifications.size())
+                i = 0;
+
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
         if (!isNotificationFound)
             throw new RuntimeException("Desired Notification not found");
     }
@@ -344,12 +402,12 @@ public class ActionUtils {
         }
     }
 
-    public static void closeApp(){
-        DriverConfig.getDriver().terminateApp("com.locon.housing");
+    public static void closeApp(String bundleId){
+        DriverConfig.getDriver().terminateApp(bundleId);
     }
 
-    public static void openApp(){
-        DriverConfig.getDriver().launchApp();
+    public static void openApp(String bundleId){
+        DriverConfig.getDriver().activateApp(bundleId);
     }
 
 

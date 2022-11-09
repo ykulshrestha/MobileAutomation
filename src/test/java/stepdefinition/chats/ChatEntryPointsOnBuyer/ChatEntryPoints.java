@@ -63,8 +63,8 @@ public class ChatEntryPoints {
         loginModal.loginWithPassword(Number, password);
     }
 
-    @Then("Chat screen is visible to Buyer")
-    public void chatScreenIsVisibleToBuyer() {
+    @Then("New Chat window is visible to User")
+    public void newChatWindowIsVisibleToUser() {
         ActionUtils.waitForVisibilityOf(chatThreadPage.getRecieverName());
         ActionUtils.waitForVisibilityOf(chatThreadPage.getPropertyName());
         ActionUtils.waitForVisibilityOf(chatThreadPage.getMessageTextBox());
@@ -97,6 +97,7 @@ public class ChatEntryPoints {
 
     @Then("Buyer sends message to seller")
     public void Buyer_sends_message_to_seller() throws InterruptedException {
+        Thread.sleep(5000);
         ActionUtils.clickButton(chatThreadPage.getPills().get(0));
         ActionUtils.clickButton(chatThreadPage.getSendButton());
         Thread.sleep(1000);

@@ -1,6 +1,6 @@
 Feature: Verify Chat Inbox Moengage Notification
 
-  @Test2
+  @Test1
   Scenario Outline: Buyer successfully opened notification and lands to desired page
     Given User logged in with "<Number>" and "<password>" onboarded for "<city>"
     And Chat Inbox notification is sent on "<Number>" and "<title>"
@@ -10,7 +10,7 @@ Feature: Verify Chat Inbox Moengage Notification
       |Number|password|city|title|ChatUserEnumName|Role|
       |7317140612|12345|Ajmer|Test|SELLERONE_BUYER|BUYER|
 
-  @Test2
+  @Test1
   Scenario Outline: Seller successfully opened notification and lands to desired page
     Given seller logged in using "<number>" and "<password>" on seller App
     And Chat Inbox notification is sent on "<number>" and "<title>"

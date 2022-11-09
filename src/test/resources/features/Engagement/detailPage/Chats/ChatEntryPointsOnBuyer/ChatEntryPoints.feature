@@ -6,7 +6,7 @@ Feature: Verify Buyer Side Chat Entry Points
     And Buyer is on detail Page of "<service>" service of "<locality>"
     When Buyer click on chat header icon
     And Buyer logged in using login modal with "<Number>" and "<password>"
-    Then Chat screen is visible to Buyer
+    Then New Chat window is visible to User
     And sellerName should be visible on chat inbox
     And Property Name should be visible
     And Buyer sends message to seller
@@ -23,7 +23,7 @@ Feature: Verify Buyer Side Chat Entry Points
     And Buyer is on detail Page of "<service>" service of "<locality>"
     When Buyer click on Chat Now
     And Buyer login using crf form with "<Number>", "<Name>" and "<email>"
-    Then Chat screen is visible to Buyer
+    Then Chat screen is visible to User
     And Buyer sends message to seller
 
     #Seller= TestSeller(8976857102)
@@ -36,7 +36,7 @@ Feature: Verify Buyer Side Chat Entry Points
     Given User logged in with "<number>" and "<password>" onboarded for "<city>"
     And Buyer is on detail Page of "<service>" service of "<locality>"
     When Buyer click on Chat for details
-    Then Chat screen is visible to Buyer
+    Then Chat screen is visible to User
     And Buyer sends message to seller
 
         #Seller= Raman Test (6111111111) - Rent
@@ -49,7 +49,7 @@ Feature: Verify Buyer Side Chat Entry Points
     Given User logged in with "<number>" and "<password>" onboarded for "<city>"
     And Buyer is on detail Page of "<service>" service of "<locality>"
     When Buyer clicks on housing chat from bottom tray
-    Then Chat screen is visible to Buyer
+    Then Chat screen is visible to User
     And Buyer sends message to seller
 
             #Seller= Raman Test (6111111111) - Rent
@@ -62,7 +62,7 @@ Feature: Verify Buyer Side Chat Entry Points
     Given User logged in with "<number>" and "<password>" onboarded for "<city>"
     And Buyer is on detail Page of "<service>" service of "<locality>"
     When Buyer navigates back to profile page and click on chat of "<profile Section>"
-    Then Chat screen is visible to Buyer
+    Then Chat screen is visible to User
     And Buyer sends message to seller
 
                 #Seller= Raman Test (6111111111) - Rent
