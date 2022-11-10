@@ -14,7 +14,7 @@ public class NeverMissCustomerModal {
     @AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]")
     private MobileElement later;
 
-    public NeverMissCustomerModal() throws InterruptedException {
+    public NeverMissCustomerModal() {
         PageFactory.initElements(new AppiumFieldDecorator(DriverConfig.getDriver()), this);
     }
 

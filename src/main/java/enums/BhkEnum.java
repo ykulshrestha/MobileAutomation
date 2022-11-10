@@ -4,11 +4,11 @@ import org.apache.commons.codec.binary.StringUtils;
 
 public enum BhkEnum{
 
-    ONERK("1"),
-    ONEBHK("2"),
-    TWOBHK("3"),
-    THREEBHK("4"),
-    THREEPLUSBHK("5");
+    ONERK("1 RK"),
+    ONEBHK("1 BHK"),
+    TWOBHK("2 BHK"),
+    THREEBHK("3 BHK"),
+    THREEPLUSBHK("3+ BHK");
 
 
     private final String value;

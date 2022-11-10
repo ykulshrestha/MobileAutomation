@@ -10,7 +10,7 @@ public class DriverConfig {
         return driver.get();
     }
 
-    public static void setDriver(AppiumDriver appiumDriver) {
+    public static synchronized void setDriver(AppiumDriver appiumDriver) {
         driver.set(appiumDriver);
     }
 }

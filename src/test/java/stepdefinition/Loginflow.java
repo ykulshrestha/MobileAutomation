@@ -11,12 +11,12 @@ import utils.AppUtil;
 
 public class Loginflow {
 
-
+//TODO: Check with new scroll function
     @Given("User opens login modal on profile page")
     public void userOpensLoginModalOnProfilePage() {
         AppUtil appUtil = new AppUtil();
         appUtil.buyerOnboarding("delhi");
-        ActionUtils.clickButton( ActionUtils.scroll("text" , "Login Now" ));
+//        ActionUtils.clickButton( ActionUtils.scroll("text" , "Login Now" ));
     }
 
     @When("User login by using number and password")
