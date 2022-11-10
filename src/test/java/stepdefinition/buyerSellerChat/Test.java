@@ -4,8 +4,10 @@ import api.ApiExecutor;
 import api.ApiResponse;
 import apiRequest.moengage.SendPushRequest;
 import apiRequest.quickblox.ChatDialogRequest;
+import apiRequest.quickblox.MessageRequest;
 import apiRequest.quickblox.SessionRequest;
 import apiRequest.quickblox.UnreadCount;
+import apiResponse.messageResponse.MessageResponse;
 import enums.ChatUserEnums;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.response.Response;
@@ -14,7 +16,7 @@ import org.hamcrest.Matchers;
 public class Test {
 
     @org.testng.annotations.Test
-    public void test(){
+    public void test() throws InterruptedException {
 
 //        sendPushRequest.setContext("signature", "abv");
 //        System.out.println("appId :" + sendPushRequest.getContext().get("appId"));
@@ -30,9 +32,10 @@ public class Test {
         SessionRequest.createSession(ChatUserEnums.RAMAN_SELLER.value());
 //        UnreadCount unreadCount = new UnreadCount();
 //        System.out.println(unreadCount.getUnreadCount());
-        ChatDialogRequest chatDialogRequest = new ChatDialogRequest();
-        chatDialogRequest.getChatDialogMessages();
-
+//        ChatDialogRequest chatDialogRequest = new ChatDialogRequest();
+//        MessageRequest messageRequest = new MessageRequest();
+//        MessageResponse messageResponse = messageRequest.getMessages(chatDialogRequest.getChatDialogMessages().getItems().get(0).get_id());
+Thread.sleep(1000);
 
     }
 }

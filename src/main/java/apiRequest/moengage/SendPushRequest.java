@@ -67,6 +67,16 @@ public class SendPushRequest extends ApiRequest {
         this.setContext(keyPath , name);
     }
 
+    public void setUserAttribute(String number){
+        String keyPath = "targetUserAttributes.attributeValue";
+        this.setContext(keyPath , number);
+    }
+
+    public void setTitle(String title){
+        String keyPath = "payload.ANDROID.title" + title;
+        this.setContext(keyPath , title);
+    }
+
     public boolean campaignPushSuccessfully(ApiResponse response){
         try {
             JsonPath jsonPath =  response.response().getBody().jsonPath();

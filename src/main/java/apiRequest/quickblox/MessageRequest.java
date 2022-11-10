@@ -3,18 +3,19 @@ package apiRequest.quickblox;
 import api.ApiBuilder;
 import api.ApiExecutor;
 import api.ApiRequest;
+import apiResponse.messageResponse.MessageResponse;
 import apiResponse.chatDialogResponse.ChatDialogResponse;
 import com.google.gson.Gson;
 import configs.QuickbloxConfig;
 import io.restassured.http.ContentType;
-import io.restassured.path.json.JsonPath;
 import org.apache.http.HttpStatus;
 
 import java.util.Map;
 import java.util.Objects;
 
-public class ChatDialogRequest extends ApiRequest {
-    public ChatDialogRequest() {
+public class MessageRequest extends ApiRequest {
+
+    public MessageRequest() {
         this.baseUrl = QuickbloxConfig.readQuickBloxProperties().get("baseUrl");
     }
 
@@ -35,7 +36,7 @@ public class ChatDialogRequest extends ApiRequest {
 
     @Override
     public String basePath() {
-        return "chat/Dialog.json";
+        return "chat/Message.json";
     }
 
     @Override
@@ -54,28 +55,16 @@ public class ChatDialogRequest extends ApiRequest {
         this.setHeaders("QB-Token", SessionRequest.getSession());
     }
 
-    public void addInboxQueryParams(){
-        this.setQueryParam("data[class_name]", "HousingGroup");
-        this.setQueryParam("data[isArchived][ne]", "true");
-        this.setQueryParam("sort_desc", "last_message_date_sent");
-        this.setQueryParam("last_message[ne]", "null");
-        this.setQueryParam("limit", "10");
-        this.setQueryParam("skip", "0");
+    public void addMessageQueryParams(String chatDialogId){
+        this.setQueryParam("chat_dialog_id", chatDialogId);
+        this.setQueryParam("sort_desc", "date_sent");
+        this.setQueryParam("limit","5");
     }
 
-    public void addArchiveQueryParams(){
-        this.setQueryParam("data[class_name]", "HousingGroup");
-        this.setQueryParam("data[isSellerArchived]", "true");
-        this.setQueryParam("sort_desc", "last_message_date_sent");
-        this.setQueryParam("last_message[ne]", "null");
-        this.setQueryParam("limit", "10");
-        this.setQueryParam("skip", "0");
-        this.setQueryParam("data[isChatDisabled][ne]", "true");
-    }
 
-     public ChatDialogResponse getChatDialogMessages(){
+    public MessageResponse getMessages(String chatDialogId){
         addQbToken();
-        addInboxQueryParams();
+        addMessageQueryParams(chatDialogId);
         Gson gson = new Gson();
 
         String response = new ApiExecutor(this)
@@ -84,10 +73,9 @@ public class ChatDialogRequest extends ApiRequest {
                 .statusCode(HttpStatus.SC_OK)
                 .extract()
                 .asString();
-         return gson.fromJson(response
-                 , ChatDialogResponse.class);
-     }
-
+        return gson.fromJson(response
+                , MessageResponse.class);
+    }
 
 
 }
