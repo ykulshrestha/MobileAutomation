@@ -1,6 +1,6 @@
 Feature: Validate existance of chat discovery points on various details page
 
-  Scenario Outline: Validate presence of chat discovery points on resale properties
+  Scenario Outline: Validate presence of chat discovery points on resale/rent properties
     Given Buyer completed onboarding for "<city>"
     And Buyer is on detail Page of "<service>" service of "<locality>"
     Then Chat entry points should be visible
@@ -41,9 +41,8 @@ Feature: Validate existance of chat discovery points on various details page
     Examples:
       |city|project|
       |Noida|Paramount Golfforeste Premium Apartments|
-  # floatingcta found
+  # floating cta found
 
-  @Test1
   Scenario Outline: Validate absence of chat discovery points on Commercial
     Given Buyer completed onboarding for "<city>"
     And Buyer is on detail Page of other "<services>" service of "<locality>"
@@ -51,6 +50,6 @@ Feature: Validate existance of chat discovery points on various details page
 
     Examples:
       |city|services|locality|
-      #|Noida|commercial|Sector 75|
+      |Noida|commercial|Sector 75|
       |Noida|pg|Sector 75|
   # commercial click is not working on first attempt
