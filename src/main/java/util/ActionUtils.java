@@ -253,24 +253,28 @@ public class ActionUtils {
     }
 
     public static MobileElement findElementBylocators(String locatorsEnum, String value){
-        switch (locatorsEnum)
-        {
-            case "xpath":
-                return (MobileElement) DriverConfig.getDriver().findElement(MobileBy.xpath(value));
-            case "name":
-                return (MobileElement) DriverConfig.getDriver().findElement(MobileBy.name(value));
-            case "AccessibilityId":
-                return (MobileElement) DriverConfig.getDriver().findElement(MobileBy.AccessibilityId(value));
-            case "className":
-                return (MobileElement) DriverConfig.getDriver().findElement(MobileBy.className(value));
-            case "id":
-                return (MobileElement) DriverConfig.getDriver().findElement(MobileBy.id(value));
-            case "linkText":
-                return (MobileElement) DriverConfig.getDriver().findElement(MobileBy.linkText(value));
-            case "partialLinkText":
-                return (MobileElement) DriverConfig.getDriver().findElement(MobileBy.partialLinkText(value));
+        try {
+            switch (locatorsEnum) {
+                case "xpath":
+                    return retryFindElement(MobileBy.xpath(value));
+                case "name":
+                    return retryFindElement(MobileBy.name(value));
+                case "AccessibilityId":
+                    return retryFindElement(MobileBy.AccessibilityId(value));
+                case "className":
+                    return retryFindElement(MobileBy.className(value));
+                case "id":
+                    return retryFindElement(MobileBy.id(value));
+                case "linkText":
+                    return retryFindElement(MobileBy.linkText(value));
+                case "partialLinkText":
+                    return retryFindElement(MobileBy.partialLinkText(value));
+            }
+            throw new RuntimeException("attribute type not supported/added");
+        }catch (NoSuchElementException e){
+            logger.error("Element not found at: {}", e.getMessage());
+            return null;
         }
-        throw new RuntimeException("attribute type not supported/added");
     }
 
     public static MobileElement getToast(String errorMessageEnums, int timeOutInSeconds) {

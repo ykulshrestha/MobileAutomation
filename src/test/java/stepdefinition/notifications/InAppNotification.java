@@ -31,7 +31,9 @@ public class InAppNotification {
     public void userClicksOnMyChatsButton() throws InterruptedException {
         Thread.sleep(5000);
         ActionUtils.clickButton(ActionUtils.retryFindElement(MobileBy.xpath("//android.widget.Button[@text='Chat now!']")));
-
+        MobileElement androidAlways = ActionUtils.findElementBylocators("id", "android:id/button_always");
+        if (androidAlways!= null)
+        ActionUtils.clickButton(androidAlways);
     }
 
 
