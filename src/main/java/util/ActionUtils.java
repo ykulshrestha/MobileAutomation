@@ -277,6 +277,31 @@ public class ActionUtils {
         }
     }
 
+    public static List<MobileElement> findElementsBylocators(String locatorsEnum, String value){
+        try {
+            switch (locatorsEnum) {
+                case "xpath":
+                    return retryFindElements(MobileBy.xpath(value));
+                case "name":
+                    return retryFindElements(MobileBy.name(value));
+                case "AccessibilityId":
+                    return retryFindElements(MobileBy.AccessibilityId(value));
+                case "className":
+                    return retryFindElements(MobileBy.className(value));
+                case "id":
+                    return retryFindElements(MobileBy.id(value));
+                case "linkText":
+                    return retryFindElements(MobileBy.linkText(value));
+                case "partialLinkText":
+                    return retryFindElements(MobileBy.partialLinkText(value));
+            }
+            throw new RuntimeException("attribute type not supported/added");
+        }catch (NoSuchElementException e){
+            logger.error("Element not found at: {}", e.getMessage());
+            return null;
+        }
+    }
+
     public static MobileElement getToast(String errorMessageEnums, int timeOutInSeconds) {
         try {
             long start = System.currentTimeMillis();
@@ -388,8 +413,8 @@ public class ActionUtils {
             throw new RuntimeException("Desired Notification not found");
     }
 
-    private static void swipe(int startX, int startY, int endX, int endY, int millis)
-            throws InterruptedException {
+    public static void swipe(int startX, int startY, int endX, int endY, int millis)
+             {
         TouchAction t = new TouchAction(DriverConfig.getDriver());
         t.press(point(startX, startY)).waitAction(waitOptions(ofMillis(millis))).moveTo(point(endX, endY)).release()
                 .perform();

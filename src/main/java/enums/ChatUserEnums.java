@@ -8,7 +8,8 @@ public enum ChatUserEnums {
     SELLERONE_BUYER("315cae1e-9a00-491e-a9a7-8fb7d67d3fa0"),
     PRABAL_SELLER("8f8f23af-d053-41ea-8ed5-9546b226d611"),
     YAMINI_BUYER("8305a298-56c4-43ca-a74c-e46c2df2ef9e"),
-    TESTSELLER_SELLER("eaab58dd-7983-4234-878b-1604489bede8");
+    TESTSELLER_SELLER("eaab58dd-7983-4234-878b-1604489bede8"),
+    ABC_BUYER("88d0de07-9958-49bd-8e19-5cbe3ff4c53f");
 
 
     private final String value;
