@@ -59,7 +59,9 @@ public class moengageNotification {
         ChatDialogRequest chatDialogRequest = new ChatDialogRequest();
         SessionRequest.createSession(ChatUserEnums.valueOf(name).getValue());
         ChatDialogResponse chatDialogResponse = chatDialogRequest.getChatDialogMessages();
-        chatInboxPage.verifyChatCardData(chatDialogResponse, role);
+//        chatInboxPage.verifyChatCardData(chatDialogResponse, role);
+//        chatInboxPage.verifyChatCardData_new(name, chatDialogResponse, role);
+        chatInboxPage.verifyChatCardDataScrollSingleCard(name, chatDialogResponse, role);
 
     }
 

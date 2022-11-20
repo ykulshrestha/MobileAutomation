@@ -13,6 +13,7 @@ import org.apache.http.HttpStatus;
 import java.util.Map;
 import java.util.Objects;
 
+//TODO: Connect with rohit/anand to ask about archive and normal inbox query params
 public class ChatDialogRequest extends ApiRequest {
     public ChatDialogRequest() {
         this.baseUrl = QuickbloxConfig.readQuickBloxProperties().get("baseUrl");
@@ -56,10 +57,10 @@ public class ChatDialogRequest extends ApiRequest {
 
     public void addInboxQueryParams(){
         this.setQueryParam("data[class_name]", "HousingGroup");
-        this.setQueryParam("data[isArchived][ne]", "true");
+        this.setQueryParam("data[isBuyerArchived][ne]", "true");
         this.setQueryParam("sort_desc", "last_message_date_sent");
         this.setQueryParam("last_message[ne]", "null");
-        this.setQueryParam("limit", "10");
+        this.setQueryParam("limit", "100");
         this.setQueryParam("skip", "0");
     }
 
@@ -68,7 +69,7 @@ public class ChatDialogRequest extends ApiRequest {
         this.setQueryParam("data[isSellerArchived]", "true");
         this.setQueryParam("sort_desc", "last_message_date_sent");
         this.setQueryParam("last_message[ne]", "null");
-        this.setQueryParam("limit", "10");
+        this.setQueryParam("limit", "100");
         this.setQueryParam("skip", "0");
         this.setQueryParam("data[isChatDisabled][ne]", "true");
     }
