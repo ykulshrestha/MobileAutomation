@@ -18,7 +18,7 @@
 <!--        <parameter name="PLATFORM_NAME" value="Android"/>-->
 <!--        <parameter name="DEVICE_NAME" value="Android Emulator"/>-->
 <!--        <parameter name="PLATFORM_VERSION" value="11.0"/>-->
-<!--        <parameter name="APP" value="/src/main/resources/builds/apk/app-gamma-release.apk"/>-->
+<!--        <parameter name="APP" value="/src/main/resources/builds/apk/app-gamma-release_old.apk"/>-->
 <!--        <parameter name="AVD" value="Pixel_4a_API_30_1"/>-->
 <!--        <parameter name="PORT" value="4723"/>-->
 <!--        <classes>-->

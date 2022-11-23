@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 public class SearchLocalityPage {
 
-    @AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.EditText")
+    @AndroidFindBy(xpath = "//android.widget.EditText[@text='Search Locality, Landmark, Project...']")
     private MobileElement SearchTextBox;
 
     @AndroidFindBy(accessibility = "results_searchLocality")
@@ -20,6 +20,9 @@ public class SearchLocalityPage {
 
     @AndroidFindBy(xpath = "//android.view.ViewGroup[contains(@content-desc,'filter_localitySelect')]/android.view.ViewGroup/android.widget.TextView[1]")
     private List<MobileElement> searchedProjectList;
+
+    @AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.ImageView")
+    private MobileElement back;
 
 
     public SearchLocalityPage() {

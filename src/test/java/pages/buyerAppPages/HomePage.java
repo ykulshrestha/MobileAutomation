@@ -21,7 +21,7 @@ public class HomePage {
     @AndroidFindBy(accessibility = "Commercial")
     private MobileElement commercial;
 
-    @AndroidFindBy(accessibility = "PG / Co-living")
+    @AndroidFindBy(accessibility = "PG")
     private MobileElement pg_co_living;
 
     @AndroidFindBy(accessibility = "Plots")

@@ -30,7 +30,7 @@ public class ChatInboxPage {
     @AndroidFindBy(xpath = "(/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup)[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup")
     private List<MobileElement> chatThreads;
 
-    @AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup")
+    @AndroidFindBy(xpath = "//android.view.ViewGroup[@bounds='[0,95][168,275]']")
     private MobileElement back;
 
     @AndroidFindBy(xpath = "//android.widget.TextView[@text='My Chats']")
@@ -86,19 +86,27 @@ public class ChatInboxPage {
         return chatThreads.get(index).findElement(MobileBy.xpath(lastMessage));
     }
 
-    public void verifyChatCardDataInView(ChatDialogResponse chatDialogResponse, String role){
-        for (int i=0 ;i<this.getChatThreads().size(); i++){
-            if (this.getName(i)== null
-                    && this.getPropertyDetails(i)== null
-                    && this.getLastMessage(i)== null)
-                    return;
-            if (role.equalsIgnoreCase("SELLER"))
-                Assert.assertEquals(this.getName(i).getText(), chatDialogResponse.getItems().get(i).getData().getBuyerName());
-            else
-            Assert.assertEquals(this.getName(i).getText(), chatDialogResponse.getItems().get(i).getData().getSellerName());
-            Assert.assertEquals(this.getPropertyDetails(i).getText(), chatDialogResponse.getItems().get(i).getName());
-            Assert.assertEquals(this.getLastMessage(i).getText(), chatDialogResponse.getItems().get(i).getLast_message());
+    public void verifyChatCardDataInView(String name, ChatDialogResponse chatDialogResponse, String role){
+        List<Item> items = chatDialogResponse.getItems();
+        List<Item> userRoleItem = new ArrayList<>();
+          Map<String, ChatPropertyDetails> propertyDetailsMap= new HashMap<>();
+        for (int i=0; i< items.size(); i++){
+            getValidInboxItem(name, role, items, userRoleItem, propertyDetailsMap, i);
+            if (userRoleItem.size() == 3)
+                break;
         }
+        //TODO: Discuss from where these fields are picked, for prabal seller facing upper case-lowercase issue
+        int sizeOfCards;
+        if (this.chatThreads.size() < 3)
+            sizeOfCards = this.chatThreads.size();
+        else
+            sizeOfCards = 3;
+        for (int i=0; i< sizeOfCards; i++) {
+            verifyRecieverName(role, userRoleItem, i, i);
+            verifyLastMessage(userRoleItem, i, i);
+            verifyPropertyDetails(userRoleItem, i, i, propertyDetailsMap);
+        }
+
     }
 
 
@@ -181,7 +189,7 @@ public class ChatInboxPage {
         Assert.assertEquals(this.getLastMessage(chatCardCounter).getText().trim(), userRoleItem.get(apiResponseCounter).getLast_message().trim());
     }
 
-    private void verifyRecieverName(String role, List<Item> userRoleItem, int apiResponseCounter, int chatCardCounter) {
+    private void  verifyRecieverName(String role, List<Item> userRoleItem, int apiResponseCounter, int chatCardCounter) {
         if (role.equalsIgnoreCase("BUYER"))
         Assert.assertEquals(this.getName(chatCardCounter).getText().trim(), userRoleItem.get(apiResponseCounter).getData().getSellerName().trim());
         else

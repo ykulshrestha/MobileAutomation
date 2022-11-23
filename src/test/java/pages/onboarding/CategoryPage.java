@@ -11,13 +11,13 @@ import org.openqa.selenium.support.PageFactory;
 @Getter
 public class CategoryPage {
 
-    @AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup")
+    @AndroidFindBy(xpath = "//android.widget.TextView[@text='Buy']")
     private MobileElement Buy;
 
-    @AndroidFindBy(id = "Rent")
+    @AndroidFindBy(xpath = "//android.widget.TextView[@text='Rent']")
     private MobileElement Rent;
 
-    @AndroidFindBy(id = "Pg")
+    @AndroidFindBy(xpath = "//android.widget.TextView[@text='P.G.']")
     private MobileElement Pg;
 
 

@@ -22,10 +22,10 @@ public class DetailsPage {
     @AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc=\"_chatButton\"]/android.view.ViewGroup/android.widget.ImageView")
     private MobileElement chatHeaderIcon;
 
-    @AndroidFindBy(xpath = "(((/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup)[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup)[1]/android.widget.TextView)[3]")
+    @AndroidFindBy(xpath = "//android.widget.TextView[@index='4']")
     private MobileElement propertyName;
 
-    @AndroidFindBy(xpath = "((((/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup)[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup)[1]/android.view.ViewGroup)[5]/android.widget.TextView)[1]")
+    @AndroidFindBy(xpath = "//android.view.ViewGroup[@index='10']/android.widget.TextView[1]")
     private MobileElement sellerName;
 
     @AndroidFindBy(xpath = "//android.widget.TextView[@text='Ask Location Information']")
@@ -43,11 +43,6 @@ public class DetailsPage {
     //TODO: use list once accessibility id is added
     @AndroidFindBy(xpath = "//android.view.ViewGroup[@bounds='[135,2031][473,2121]']")
     private MobileElement housingChatInBottomTray;
-
-
-    public void handleChatCoachmark(){
-        ActionUtils.clickButton(ActionUtils.elementWithMatchingText("Later"));
-    }
 
     public DetailsPage() {
         PageFactory.initElements(new AppiumFieldDecorator(DriverConfig.getDriver()), this);

@@ -12,16 +12,16 @@ import org.openqa.selenium.support.PageFactory;
 @Getter
 public class WelcomePage {
 
-    @AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup")
+    @AndroidFindBy(xpath = "//android.widget.TextView[@text='Home search']")
     private MobileElement HomeSearch;
 
-    @AndroidFindBy(id = "PayOnCredit")
+    @AndroidFindBy(xpath = "//android.widget.TextView[@text='Pay on Credit']")
     private MobileElement PayOnCredit;
 
-    @AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup")
+    @AndroidFindBy(xpath = "//android.widget.TextView[@text='Post your property']")
     private MobileElement PostYourProperty;
 
-    @AndroidFindBy(id = "HomeRelatedServices")
+    @AndroidFindBy(xpath = "//android.widget.TextView[@text='Home related services']")
     private MobileElement HomeRelatedServices;
 
 
